@@ -2,3 +2,4 @@ http://stats.stackexchange.com/questions/2151/how-to-plot-roc-curves-in-multicla
 http://stats.stackexchange.com/questions/44261/how-to-determine-the-quality-of-a-multiclass-classifier
 
 http://cseweb.ucsd.edu/~elkan/clresults.html
+http://weka.8497.n7.nabble.com/KDD-99-Network-Intrusion-Dataset-td718.html
