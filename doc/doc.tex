@@ -18,21 +18,31 @@
 
 \newpage
 
-%Klasyfikacja. Konkretyzacja tego zadania wymaga:
-%ustalenia atrybutu dyskretnego reprezentującego pojęcie docelowe,
-%określenia zakresu przygotowania danych (np. przetworzenia do odpowiedniej postaci tabelarycznej, modyfikacji typów/zbiorów wartości atrybutów, eliminacji/naprawy defektów danych, modyfikacji rozkładu kategorii, losowania podzbiorów danych),
-%określenia zakresu i technik statystycznego opisu danych (np. charakterystyki %rozkładu wartości atrybytów, detekcji wartości odstających, detekcji zależności między atrybutami),
-%wskazania możliwości zdefiniowania nowych atrybutów,
-%ustalenia kryteriów lub algorytmu selekcji atrybutów,
-%wyboru algorytmów klasyfikacji,
-%wskazania parametrów algorytmów klasyfikacji wymagających strojenia,
-%ustalenia procedur i kryteriów oceny jakości modeli (z uwzględnieniem rozkładu oraz, tam gdzie to uzasadnione, kosztów pomyłek).
-
 \section{Opis projektu}
+Projekt ma na celu analizę działania różnych algorytmów klasyfikacji zastosowanych
+w procesie wykrywania ataków sieciowych. Połączenia sieciowe można podzielić na dwa typy:
+\begin{itemize}
+	\item prawidłowe,
+	\item nieprawidłowe, naruszające bezpieczeństwo.
+\end{itemize}
+W ramach projektu zbadane zostaną algorytmy, które opisano w sekcji \ref{algorithms} niniejszego dokumentu.
 
-\paragraph{Dane}
+\section{Dane}
+Zbiorem danych, który zostanie wykorzystany podczas realizacji projektu jest zbiór danych dostępny pod adresem http://www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection
 
-\paragraph{Środowisko programowania}
+Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego. Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze treningowym.
+
+Zdefiniowane w zbiorach danych typy ataków sieciowych mogą przynależeć do jednej z czterech kategorii: DOS, R2L, U2L, probing.
+
+
+Na podstawie informacji na temat przynależności typów ataków sieciowych do poszczególnych klas, dane zostaną podzielone na pięć grup:
+\begin{itemize}
+	\item normal - połączenia prawidłowe,
+	\item DOS - połączenia będące atakami typu DOS,
+	\item R2L - połączenie będące atakami typu R2L,
+	\item U2L - połączenia będące atakami typu U2L,
+	\item probing - połączenia będące atakami typu probing.
+\end{itemize}
 
 \section{Analizowane algorytmy klasyfikacji}\label{algorithms}
 
