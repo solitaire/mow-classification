@@ -34,7 +34,6 @@ Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego.
 
 Zdefiniowane w zbiorach danych typy ataków sieciowych mogą przynależeć do jednej z czterech kategorii: DOS, R2L, U2L, probing.
 
-
 Na podstawie informacji na temat przynależności typów ataków sieciowych do poszczególnych klas, dane zostaną podzielone na pięć grup:
 \begin{itemize}
 	\item normal - połączenia prawidłowe,
@@ -44,8 +43,12 @@ Na podstawie informacji na temat przynależności typów ataków sieciowych do p
 	\item probing - połączenia będące atakami typu probing.
 \end{itemize}
 
+%TODO napisać czy będziemy coś robić z atrybutami
+
 \section{Analizowane algorytmy klasyfikacji}\label{algorithms}
+% Mamy w sumie 5 klas, więc może być trochę więcej roboty niż z klasyfikatorem binarnym. Może wystarczą 2 algorytmy: SVM(jest sporo parametrów do wyboru) i jeszcze jakiś jeden?
 
 \section{Sposób oceny jakości modelu}
+Jakość modelu zostanie poddana ocenie poprzez analizę jakości klasyfikacji i macierzy pomyłek. Ponadto zostanie wykorzystana graficzna reprezentacja zależności wyników typu \textit{true-positive} i \textit{false-positive} w postaci krzywej ROC.
 
 \end{document}
