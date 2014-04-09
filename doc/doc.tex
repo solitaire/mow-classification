@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{indentfirst}
+\usepackage{float}
 
 \title{Metody odkrywania wiedzy -- wykrywanie ataków sieciowych}
 \author{Adam Stelmaszczyk\\ Anna Stępień}
@@ -54,10 +55,10 @@ Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu kla
 
 \begin{enumerate}
  \item \texttt{normal} -- połączenia prawidłowe.
+ \item \texttt{probe} -- odpytywanie, np. skanowanie portów.
  \item \texttt{DOS} -- ataki typu Denial of Service.
  \item \texttt{R2L} -- nieautoryzowany dostęp ze zdalnej maszyny, np. zgadywanie hasła.
  \item \texttt{U2L} -- przejęcie praw administratora lokalnej maszyny, np. ataki przepełnienia bufora.
- \item \texttt{probing} -- odpytywanie, np. skanowanie portów.
 \end{enumerate}
 
 Na początku dane zostaną przejrzane w poszukiwaniu pojedynczych wartości odstających
@@ -75,11 +76,22 @@ a~następnie przeskalujemy wszystkie wartości, tak aby miały taki sam rzęd wi
 
 \subsection{Sposób oceny jakości modelu}
 Jakość modelu zostanie poddana ocenie zgodnie z procedurą konkursową,
-poprzez obliczenie kosztu pomyłek przy pomocy podanej macierzy kar.
+poprzez obliczenie kosztu pomyłek przy pomocy podanej macierzy kar:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ l l l l l l }
+       & \texttt{normal}&\texttt{probe}	&\texttt{DOS}	&\texttt{U2R}	&\texttt{R2L} \\
+\texttt{normal}	&0	&1	&2	&2	&2 \\
+\texttt{probe}	&1	&0	&2	&2	&2 \\
+\texttt{DOS}	&2	&1	&0	&2	&2 \\
+\texttt{U2R}	&3	&2	&2	&0	&2 \\
+\texttt{R2L}	&4	&2	&2	&2	&0 \\
+\end{tabular}
+\caption{Macierz kar}
+\label{table:cov_matrix}
+\end{table}
 
 % Ponadto zostanie wykorzystana graficzna reprezentacja zależności wyników typu \textit{true-positive} i \textit{false-positive} w postaci krzywej ROC.
-
-\section{Otwarte kwestie wymagające późniejszego rozwiązania}
-
 
 \end{document}
