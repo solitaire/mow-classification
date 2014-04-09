@@ -1,14 +1,12 @@
 \documentclass[a4paper, 12pt]{article}
-\usepackage [MeX] {polski}
-\usepackage [utf8] {inputenc}
-\usepackage {hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{hyperref}
 \usepackage{graphicx}
-\usepackage[nottoc,numbib]{tocbibind}
-\usepackage{color}
 \usepackage{indentfirst}
 
-\title {Metody odkrywania wiedzy - wykrywanie ataków sieciowych}
-\author {Adam Stelmaszczyk\\ Anna Stępień}
+\title{Metody odkrywania wiedzy -- wykrywanie ataków sieciowych}
+\author{Adam Stelmaszczyk\\ Anna Stępień}
 
 \begin{document}
 
@@ -18,37 +16,72 @@
 
 \newpage
 
-\section{Opis projektu}
+\section{Interpretacja tematu projektu}
 Projekt ma na celu analizę działania różnych algorytmów klasyfikacji zastosowanych
 w procesie wykrywania ataków sieciowych. Połączenia sieciowe można podzielić na dwa typy:
 \begin{itemize}
 	\item prawidłowe,
 	\item nieprawidłowe, naruszające bezpieczeństwo.
 \end{itemize}
-W ramach projektu zbadane zostaną algorytmy, które opisano w sekcji \ref{algorithms} niniejszego dokumentu.
+W ramach projektu zbadane zostaną algorytmy, które opisano w sekcji \ref{algorithms} 
+tej pracy.
 
-\section{Dane}
-Zbiorem danych, który zostanie wykorzystany podczas realizacji projektu jest zbiór danych dostępny pod adresem http://www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection
+\section{Opis wykorzystanych algorytmów}\label{algorithms}
 
-Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego. Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze treningowym.
+k-NN, SVM
 
-Zdefiniowane w zbiorach danych typy ataków sieciowych mogą przynależeć do jednej z czterech kategorii: DOS, R2L, U2L, probing.
+\section{Plan badań}
 
-Na podstawie informacji na temat przynależności typów ataków sieciowych do poszczególnych klas, dane zostaną podzielone na pięć grup:
+\subsection{Pytania, na które będzie poszukiwana odpowiedź}
+
+\begin{enumerate}
+ \item Jakie parametry dla algorytmów dadzą najlepsze wyniki?
+ \item Który algorytm przy najlepszych parametrach da lepsze wyniki?
+ \item Który algorytm będzie działał szybciej?
+ \item Które cechy miały największy wpływ na klasyfikację i dlaczego?
+\end{enumerate}
+
+\subsection{Analiza danych wejściowych}
+
+Zbiorem danych, który zostanie wykorzystany podczas realizacji projektu jest zbiór danych dostępny 
+pod adresem http://www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection.
+
+Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego. 
+Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz 
+zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze treningowym.
+
+Zdefiniowane w zbiorach danych typy ataków sieciowych mogą przynależeć do jednej z czterech kategorii: 
+DOS, R2L, U2L, probing.
+
+Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu grup:
+
+\begin{enumerate}
+ \item \texttt{normal} -- połączenia prawidłowe.
+ \item \texttt{DOS} -- ataki typu Denial of Service.
+ \item \texttt{R2L} -- nieautoryzowany dostęp ze zdalnej maszyny, np. zgadywanie hasła.
+ \item \texttt{U2L} -- przejęcie praw administratora lokalnej maszyny, np. ataki przepełnienia bufora.
+ \item \texttt{probing} -- odpytywanie, np. skanowanie portów.
+\end{enumerate}
+
+Na początku dane zostaną przejrzane w poszukiwaniu wartości odstających.
+Przykłady odstające zostaną usunięte. Następnie zostanie wybranych kilka najlepiej rokujących
+cech. Przetestowane zostanie też działanie algorytmów biorące wszystkie cechy pod uwagę.
+Dane zostaną znormalizowane.
+
+\subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
+
 \begin{itemize}
-	\item normal - połączenia prawidłowe,
-	\item DOS - połączenia będące atakami typu DOS,
-	\item R2L - połączenie będące atakami typu R2L,
-	\item U2L - połączenia będące atakami typu U2L,
-	\item probing - połączenia będące atakami typu probing.
+ \item Wartość $k$ dla algorytmu k-NN.
+ \item Coś (jądro?) dla SVM.
 \end{itemize}
 
-%TODO napisać czy będziemy coś robić z atrybutami
+\subsection{Sposób oceny jakości modelu}
+Jakość modelu zostanie poddana ocenie zgodnie z procedurą konkursową,
+poprzez analizę jakości klasyfikacji i macierzy pomyłek.
 
-\section{Analizowane algorytmy klasyfikacji}\label{algorithms}
-% Mamy w sumie 5 klas, więc może być trochę więcej roboty niż z klasyfikatorem binarnym. Może wystarczą 2 algorytmy: SVM(jest sporo parametrów do wyboru) i jeszcze jakiś jeden?
+% Ponadto zostanie wykorzystana graficzna reprezentacja zależności wyników typu \textit{true-positive} i \textit{false-positive} w postaci krzywej ROC.
 
-\section{Sposób oceny jakości modelu}
-Jakość modelu zostanie poddana ocenie poprzez analizę jakości klasyfikacji i macierzy pomyłek. Ponadto zostanie wykorzystana graficzna reprezentacja zależności wyników typu \textit{true-positive} i \textit{false-positive} w postaci krzywej ROC.
+\section{Otwarte kwestie wymagające późniejszego rozwiązania}
+
 
 \end{document}
