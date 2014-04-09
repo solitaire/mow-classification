@@ -29,7 +29,11 @@ tej pracy.
 
 \section{Opis wykorzystanych algorytmów}\label{algorithms}
 
-k-NN, SVM
+\subsection{k-NN}
+k-NN jest algorytmem, który dokonuje klasyfikacji na podstawie podobieństwa do k najbardziej podobnych przykładów ze zbioru uczącego. W~celu oszacowania podobieństwa poszczególnych próbek, stosowane są miary odległości takie jak np. metryka euklidesowa lub Manhattan. Klasa, która przypisywana jest do badanego obiektu ustalana jest na podstawie klasy reprezentowanej przez największą spośród wybranych wcześniej k przykładów.
+
+\subsection{SVM}
+SVM jest klasyfikatorem binarnym, który ma na celu wyznaczenie hiperpłaszczyzny rozdzielającej z~maksymalnym marginesem przykłady należące do dwóch klas. W~ramach projektu realizowana będzie klasyfikacja mająca na celu przypisanie połączeń sieciowych do jednej z~pięciu klas. Problem klasyfikacji wieloklasowej może być zdekomponowany do szeregu problemów klasyfikacji binarnej. W~projekcie wykorzystane zostanie podejście \textit{one-against-one}, które polega na zbudowaniu klasyfikatora SVM dla każdej pary klas.
 
 \section{Plan badań}
 
@@ -65,7 +69,7 @@ Na początku dane zostaną przejrzane w poszukiwaniu pojedynczych wartości odst
 powstałych np. na skutek błędu ludzkiego. Następnie zostanie wybranych kilka najlepiej rokujących
 cech. Przetestowane zostanie też działanie algorytmów biorące wszystkie cechy pod uwagę.
 Dane zostaną znormalizowane -- dokonamy konwersji atrybutów nieliczbowych na liczbowe,
-a~następnie przeskalujemy wszystkie wartości, tak aby miały taki sam rzęd wielkości.
+a~następnie przeskalujemy wszystkie wartości, tak aby miały taki sam rząd wielkości.
 
 \subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
 
