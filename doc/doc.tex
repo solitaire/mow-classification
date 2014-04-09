@@ -44,16 +44,13 @@ k-NN, SVM
 \subsection{Analiza danych wejściowych}
 
 Zbiorem danych, który zostanie wykorzystany podczas realizacji projektu jest zbiór danych dostępny 
-pod adresem http://www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection.
+pod adresem: \\
+\url{www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection}.
 
 Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego. 
 Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz 
 zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze treningowym.
-
-Zdefiniowane w zbiorach danych typy ataków sieciowych mogą przynależeć do jednej z czterech kategorii: 
-DOS, R2L, U2L, probing.
-
-Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu grup:
+Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu klas:
 
 \begin{enumerate}
  \item \texttt{normal} -- połączenia prawidłowe.
@@ -63,21 +60,22 @@ Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu gru
  \item \texttt{probing} -- odpytywanie, np. skanowanie portów.
 \end{enumerate}
 
-Na początku dane zostaną przejrzane w poszukiwaniu wartości odstających.
-Przykłady odstające zostaną usunięte. Następnie zostanie wybranych kilka najlepiej rokujących
+Na początku dane zostaną przejrzane w poszukiwaniu pojedynczych wartości odstających
+powstałych np. na skutek błędu ludzkiego. Następnie zostanie wybranych kilka najlepiej rokujących
 cech. Przetestowane zostanie też działanie algorytmów biorące wszystkie cechy pod uwagę.
-Dane zostaną znormalizowane.
+Dane zostaną znormalizowane -- dokonamy konwersji atrybutów nieliczbowych na liczbowe,
+a~następnie przeskalujemy wszystkie wartości, tak aby miały taki sam rzęd wielkości.
 
 \subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
 
 \begin{itemize}
  \item Wartość $k$ dla algorytmu k-NN.
- \item Coś (jądro?) dla SVM.
+ \item Rodzaj jądra dla SVM.
 \end{itemize}
 
 \subsection{Sposób oceny jakości modelu}
 Jakość modelu zostanie poddana ocenie zgodnie z procedurą konkursową,
-poprzez analizę jakości klasyfikacji i macierzy pomyłek.
+poprzez obliczenie kosztu pomyłek przy pomocy podanej macierzy kar.
 
 % Ponadto zostanie wykorzystana graficzna reprezentacja zależności wyników typu \textit{true-positive} i \textit{false-positive} w postaci krzywej ROC.
 
