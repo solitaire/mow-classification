@@ -47,14 +47,18 @@ gdzie $a_i(x)$ oznacza $i$-ty atrybut przykładu $x$.
 Przyjęte zostało założenie, że wartości poszczególnych atrybutów są niezależne od siebie.
 Na tym polega ,,naiwność'' klasyfikatora Bayesa.
 
-Naiwny klasyfikator Bayesa zostanie przetestowany przy pomocy funkcji \texttt{naiveBayes} z pakietu \texttt{e1071} języka R
-\footnote{\url{http://www-users.cs.york.ac.uk/~jc/teaching/arin/R_practical/}}
+Naiwny klasyfikator Bayesa zostanie przetestowany przy pomocy funkcji \texttt{naiveBayes} z~pakietu \texttt{e1071} języka~R
+\footnote{\url{http://www-users.cs.york.ac.uk/~jc/teaching/arin/R_practical/}}.
 
 \subsection{k-NN}
 k-NN jest algorytmem, który dokonuje klasyfikacji na podstawie podobieństwa do k najbardziej podobnych przykładów ze zbioru uczącego. W~celu oszacowania podobieństwa poszczególnych próbek, stosowane są miary odległości takie jak np. metryka euklidesowa lub Manhattan. Klasa, która przypisywana jest do badanego obiektu ustalana jest na podstawie klasy reprezentowanej przez największą spośród wybranych wcześniej k przykładów.
 
+Algorytm k-NN zostanie przetestowany z~wykorzystaniem funkcji \texttt{knn} oferowanej przez pakiet \texttt{FNN} języka~R \footnote{\url{http://cran.r-project.org/web/packages/FNN/}}.
+
 \subsection{SVM}
-SVM jest klasyfikatorem binarnym, który ma na celu wyznaczenie hiperpłaszczyzny rozdzielającej z~maksymalnym marginesem przykłady należące do dwóch klas. W~ramach projektu realizowana będzie klasyfikacja mająca na celu przypisanie połączeń sieciowych do jednej z~pięciu klas. Problem klasyfikacji wieloklasowej może być zdekomponowany do szeregu problemów klasyfikacji binarnej. W~projekcie wykorzystane zostanie podejście \textit{one-against-one}, które polega na zbudowaniu klasyfikatora SVM dla każdej pary klas.
+SVM jest klasyfikatorem binarnym, który ma na celu wyznaczenie hiperpłaszczyzny rozdzielającej z~maksymalnym marginesem przykłady należące do dwóch klas. W~ramach projektu realizowana będzie klasyfikacja mająca na celu przypisanie połączeń sieciowych do jednej z~pięciu klas. Problem klasyfikacji wieloklasowej może być zdekomponowany do szeregu problemów klasyfikacji binarnej. W~projekcie wykorzystane zostanie podejście \textit{one-against-one}, które polega na zbudowaniu klasyfikatora SVM dla każdej pary klas. 
+
+Do przetestowania klasyfikatora SVM zostanie wykorzystana funkcja \texttt{svm} z~pakietu \texttt{e1071} języka~R \footnote{\url{http://cran.r-project.org/web/packages/e1071/}}.
 
 \section{Plan badań}
 
@@ -105,6 +109,8 @@ a~następnie przeskalujemy wszystkie wartości, tak aby miały taki sam rząd wi
  \item Rodzaj jądra dla SVM.
 \end{itemize}
 
+%TODO astepien dopisanie parametrów, które oferują funkcje z R, a które będziemy dostrajać
+
 \subsection{Sposób oceny jakości modelu}
 Jakość modelu zostanie poddana ocenie zgodnie z procedurą konkursową,
 poprzez obliczenie kosztu pomyłek przy pomocy podanej macierzy kar:
@@ -122,6 +128,8 @@ poprzez obliczenie kosztu pomyłek przy pomocy podanej macierzy kar:
 \caption{Macierz kar}
 \label{table:cov_matrix}
 \end{table}
+
+%TODO astepien opisać dokładnie, ważenie przykładów, resampling
 
 % Ponadto zostanie wykorzystana graficzna reprezentacja zależności wyników typu \textit{true-positive} i \textit{false-positive} w postaci krzywej ROC.
 
