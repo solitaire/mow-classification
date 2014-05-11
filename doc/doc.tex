@@ -29,6 +29,27 @@ tej pracy.
 
 \section{Opis wykorzystanych algorytmów}\label{algorithms}
 
+\subsection{Naiwny klasyfikator Bayesa}
+
+Klasyfikator Bayesa wybiera klasę, która jest najbardziej prawdopodna dla danego przykładu na podstawie prawdopodobieństwa
+warunkowego $P(c \mid x)$, gdzie $c$ oznacza etykietę klasy, a $x$ jest przykładem. Jest to tzw. prawdopodobieństwo
+\textit{a posteriori}. Wyznaczane jest ze wzoru:
+
+$$ P(c \mid x) = \frac{P(x \mid c)P(c)}{P(x)} $$
+
+Przy poszukiwaniu maksimum $P(c \mid x)$ mianownik $P(x)$ można pominąć bez zmiany wyniku maksymalizacji.
+Prawdopodobieństwo \textit{a posteriori} $P(c)$ można oszacować na podstawie częstości występowania klas w zbiorze treningowym.
+Natomiast prawdopodobieństwo $P(x \mid c)$ jest szacowane ze wzoru:
+
+$$ P(x \mid c) = \prod_{i=1}^n P(a_i(x) \mid c)$$
+
+gdzie $a_i(x)$ oznacza $i$-ty atrybut przykładu $x$.
+Przyjęte zostało założenie, że wartości poszczególnych atrybutów są niezależne od siebie.
+Na tym polega ,,naiwność'' klasyfikatora Bayesa.
+
+Naiwny klasyfikator Bayesa zostanie przetestowany przy pomocy funkcji \texttt{naiveBayes} z pakietu \texttt{e1071} języka R
+\footnote{\url{http://www-users.cs.york.ac.uk/~jc/teaching/arin/R_practical/}}
+
 \subsection{k-NN}
 k-NN jest algorytmem, który dokonuje klasyfikacji na podstawie podobieństwa do k najbardziej podobnych przykładów ze zbioru uczącego. W~celu oszacowania podobieństwa poszczególnych próbek, stosowane są miary odległości takie jak np. metryka euklidesowa lub Manhattan. Klasa, która przypisywana jest do badanego obiektu ustalana jest na podstawie klasy reprezentowanej przez największą spośród wybranych wcześniej k przykładów.
 
