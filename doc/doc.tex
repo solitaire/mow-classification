@@ -129,7 +129,11 @@ poprzez obliczenie kosztu pomyłek przy pomocy podanej macierzy kar:
 \label{table:cov_matrix}
 \end{table}
 
-%TODO astepien opisać dokładnie, ważenie przykładów, resampling
+Wykorzystywane w~projekcie dane charakteryzują się nierównomiernym rozkładem klas. W~zależności od otrzymywanych błędów klasyfikacji, konieczne może okazać się dokonanie pewnych modyfikacji w~procedurze przygotowania danych treningowych oraz w~samej postaci macierzy kar. 
+\begin{itemize}
+	\item strojenie parametrów przedstawionej macierzy kar, polegające na zwiększaniu wag dla klas znajdujących się w~zdecydowanej mniejszości w~stosunku do pozostałych klas, a~zmniejszanie ich dla klas, których rozkład jest równomierny.
+	\item resampling przykładów treningowych w~celu uzyskania równomiernego rozkładu klas. Do tego celu wykorzystany algorytm \texttt{SMOTE} udostępniany przez pakiet \texttt{DMwR} \footnote{\url{http://cran.r-project.org/web/packages/DMwR/}} języka~R.
+\end{itemize}
 
 % Ponadto zostanie wykorzystana graficzna reprezentacja zależności wyników typu \textit{true-positive} i \textit{false-positive} w postaci krzywej ROC.
 
