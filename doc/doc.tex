@@ -62,9 +62,14 @@ SVM jest klasyfikatorem binarnym, który ma na celu wyznaczenie hiperpłaszczyzn
 
 \begin{enumerate}
  \item Jakie parametry dla algorytmów dadzą najlepsze wyniki?
- \item Który algorytm przy najlepszych parametrach da lepsze wyniki?
- \item Który algorytm będzie działał szybciej?
- \item Które cechy miały największy wpływ na klasyfikację i dlaczego?
+ \item Który algorytm przy najlepszych parametrach da najlepsze wyniki?
+ \item Który algorytm przy najlepszych parametrach będzie działał najszybciej?
+ \item Które cechy miały największy wpływ na klasyfikację?
+
+Wykorzystana zostanie funkcja \texttt{importance} z pakietu lasów losowych \texttt{randomForest}.
+\footnote{\url{http://cran.r-project.org/web/packages/randomForest/randomForest.pdf}}
+Funkcja ta zwraca wartości dwóch miar ważności dla wszystkich atrybutów.
+Pierwszą miarą jest średni spadek precyzji, drugą jest średni spadek nieczystości węzłów.
 \end{enumerate}
 
 \subsection{Analiza danych wejściowych}
@@ -73,8 +78,9 @@ Zbiorem danych, który zostanie wykorzystany podczas realizacji projektu jest zb
 pod adresem: \\
 \url{www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection}.
 
-Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego. 
-Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz 
+Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego.
+Każdy przykład ma 42 atrybuty.
+Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz
 zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze treningowym.
 Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu klas:
 
