@@ -103,13 +103,25 @@ Dane zostaną znormalizowane -- dokonamy konwersji atrybutów nieliczbowych na l
 a~następnie przeskalujemy wszystkie wartości, tak aby miały taki sam rząd wielkości.
 
 \subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
+Poniżej przedstawiono parametry algorytmów, które będą analizowane.
 
+\subsubsection*{Naiwny klasyfikator Bayesa}
 \begin{itemize}
- \item Wartość $k$ dla algorytmu k-NN.
- \item Rodzaj jądra dla SVM.
+	\item wygładzanie Laplace'a,
+	\item parametr sterujący zwracanym formatem danych (czy zwracane są wyznaczone prawdopodobieństwa klas, czy też klasa z~największym prawdopodobieństwem).
 \end{itemize}
 
-%TODO astepien dopisanie parametrów, które oferują funkcje z R, a które będziemy dostrajać
+\subsubsection*{k-NN}
+\begin{itemize}
+	\item wartość parametru $k$,
+	\item algorytm wyszukiwania najbliższego sąsiada.
+\end{itemize}
+
+\subsubsection*{SVM}
+\begin{itemize}
+ \item rodzaj jądra oraz parametry charakterystyczne dla poszczególnych typów,
+ \item wagi poszczególnych klas.
+\end{itemize}
 
 \subsection{Sposób oceny jakości modelu}
 Jakość modelu zostanie poddana ocenie zgodnie z procedurą konkursową,
