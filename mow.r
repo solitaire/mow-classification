@@ -46,10 +46,10 @@ loadData <- function(path) {
 #
 # kolumna 42 - klasa ataku
 normalizeData <- function(data) {
-  data[c(2)] <- lapply(data[c(2)], function(x) protocolTypeMapping[x])
-  data[c(3)] <- lapply(data[c(3)], function(x) serviceMapping[x])
-  data[c(4)] <- lapply(data[c(4)], function(x) flagMapping[x])
-  data[c(42)] <- lapply(data[c(42)], function(x) classMapping[x])
+  data[,2] <- sapply(data[,2], function(x) protocolTypeMapping[[x]])
+  data[,3] <- sapply(data[,3], function(x) serviceMapping[[x]])
+  data[,4] <- sapply(data[,4], function(x) flagMapping[[x]])
+  data[,42] <- sapply(data[,42], function(x) classMapping[[x]])
   return (data)
 }
 
