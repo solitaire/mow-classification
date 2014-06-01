@@ -1,5 +1,9 @@
 #!/usr/bin/Rscript
 
-source("mow.r")
-prepareData("kddcup.data_10_percent_corrected", 10000);
+set.seed(1)
 
+cat("Loading libraries... ");
+source("mow.r")
+cat("Done.\n");
+data = prepareData("1percent.data");
+KNN(data$train, data$test, data$trainClasses)

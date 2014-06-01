@@ -1,10 +1,10 @@
-library("FNN")
-library("e1071")
-library("DMwR")
-library("randomForest")
+suppressMessages(library("FNN"))
+suppressMessages(library("e1071"))
+suppressMessages(library("DMwR"))
+suppressMessages(library("randomForest"))
 
 # mapowanie pomiędzy rodzajem ataku i odpowiadającą mu klasą
-classMapping <- list(
+classMapping = list(
   "back."="dos", "land."="dos", "neptune."="dos", "pod."="dos", "smurf."="dos", "teardrop."="dos",
   "buffer_overflow."="u2r", "loadmodule."="u2r", "perl."="u2r", "rootkit."="u2r",
   "ftp_write."="r2l", "guess_passwd."="r2l", "imap."="r2l", "multihop."="r2l", "phf."="r2l", "spy."="r2l", "warezclient."="r2l", "warezmaster."="r2l",
@@ -12,10 +12,10 @@ classMapping <- list(
   "normal."="normal")
 
 # mapowanie pomiędzy typem protokołu i jej ciągłym odpowiednikiem
-protocolTypeMapping <- list("icmp"=0, "tcp"=1, "udp"=2)
+protocolTypeMapping = list("icmp"=0, "tcp"=1, "udp"=2)
 
 # mapowanie pomiędzy usługą i jej ciągłym odpowiednikiem
-serviceMapping <- list("smtp"=0, "bgp"=1, "imap4"=2, "courier"=3, "name"=4, "exec"=5, "ftp"=6, "echo"=7, "http_2784"=8,
+serviceMapping = list("smtp"=0, "bgp"=1, "imap4"=2, "courier"=3, "name"=4, "exec"=5, "ftp"=6, "echo"=7, "http_2784"=8,
                        "http_443"=9, "discard"=10, "kshell"=11, "login"=12, "http"=13, "Z39_50"=14, "vmnet"=15, "supdup"=16,
                        "gopher"=17, "printer"=18, "aol"=19, "tftp_u"=20, "csnet_ns"=21, "http_8001"=22, "eco_i"=23, "time"=24,
                        "ssh"=25, "efs"=26, "hostnames"=27, "X11"=28, "klogin"=29, "sql_net"=30, "ldap"=31, "private"=32,
@@ -25,10 +25,10 @@ serviceMapping <- list("smtp"=0, "bgp"=1, "imap4"=2, "courier"=3, "name"=4, "exe
                        "mtp"=58, "sunrpc"=59, "uucp_path"=60, "red_i"=61, "harvest"=62, "nnsp"=63, "telnet"=64, "domain"=65,
                        "ntp_u"=66, "netbios_dgm"=67, "nntp"=68, "netbios_ssn"=69)
 # mapowanie pomiędzy flagą i jej ciągłym odpowiednikiem
-flagMapping <- list("REJ"=0, "SF"=1, "SH"=2, "RSTO"=3, "OTH"=4, "RSTR"=5, "RSTOS0"=6, "S0"=7, "S1"=8, "S2"=9, "S3"=10)
+flagMapping = list("REJ"=0, "SF"=1, "SH"=2, "RSTO"=3, "OTH"=4, "RSTR"=5, "RSTOS0"=6, "S0"=7, "S1"=8, "S2"=9, "S3"=10)
 
 
-loadData <- function(path) {
+loadData = function(path) {
   return (read.csv(path, stringsAsFactors=FALSE))
 }
 
@@ -45,65 +45,61 @@ loadData <- function(path) {
 # flag {REJ,SF,SH,RSTO,OTH,RSTR,RSTOS0,S0,S1,S2,S3} (4)
 #
 # kolumna 42 - klasa ataku
-normalizeData <- function(data) {
-  data[,2] <- vapply(data[,2], function(x) protocolTypeMapping[[x]], 0)
-  data[,3] <- vapply(data[,3], function(x) serviceMapping[[x]], 0)
-  data[,4] <- vapply(data[,4], function(x) flagMapping[[x]], 0)
-  data[,42] <- vapply(data[,42], function(x) classMapping[[x]], "")
+normalizeData = function(data) {
+  data[,2] = vapply(data[,2], function(x) protocolTypeMapping[[x]], 0)
+  data[,3] = vapply(data[,3], function(x) serviceMapping[[x]], 0)
+  data[,4] = vapply(data[,4], function(x) flagMapping[[x]], 0)
+  data[,42] = vapply(data[,42], function(x) classMapping[[x]], "")
   
-  data[,2] <- as.numeric(data[,2])
-  data[,3] <- as.numeric(data[,3])
-  data[,4] <- as.numeric(data[,4])
+  data[,2] = as.numeric(data[,2])
+  data[,3] = as.numeric(data[,3])
+  data[,4] = as.numeric(data[,4])
   
   return (data)
 }
 
-selectAttributes <- function(data) {
+selectAttributes = function(data) {
   #TODO
 }
 
-getSVMModelPredictions <- function(train, test, classes, kernelFunc, degree, gamma, coef0, cost) {
-  model <- svm(classes ~ ., train, probability=TRUE, scale=FALSE, kernel=kernelFunc, 
+Bayes = function(train, test, classes, naiveBayesLaplace) {
+  model = naiveBayes(classes ~ ., train, laplace=naiveBayesLaplace)
+  return (predict(model, test, type="class"))
+}
+
+KNN = function(train, test, classes, K = 3, KNNAlgorithm = "kd_tree") {
+  return (knn(train, test, classes, k=K, algorithm=KNNAlgorithm))
+}
+
+SVM = function(train, test, classes, kernelFunc, degree, gamma, coef0, cost) {
+  model = svm(classes ~ ., train, probability=TRUE, scale=FALSE, kernel=kernelFunc, 
                degree=kernelDegree, gamma=kernelGamma, coef0=kernelCoef0, cost=svmCost)
   return (predict(model, test, probability=FALSE))
 }
 
-getKNNModelPredictions <- function(train, test, classes, knnK, KNNAlgorithm) {
-  return (knn(train, test, classes, k=knnK, algorithm=KNNAlgorithm))
-}
-
-getNaiveBayesModelPredictions <- function(train, test, classes, naiveBayesLaplace) {
-  model <- naiveBayes(classes ~ ., train, laplace=naiveBayesLaplace)
-  return (predict(model, test, type="class"))
-}
-
-prepareData <- function(path, sampleSize) {
-  data <- loadData(path)
+# path - Path to the file with data examples.
+# part - Part of data to read, between 0 and 1 (100%).
+prepareData = function(path, part = 1) {
+  cat("Loading ", path, "... ", sep = "");
+  data = loadData(path)
+  cat("Done.\n")
   
   # podział danych na zbiór trenujący i testowy
-  set.seed(1)
-  sampledData <- data[sample(nrow(data), sampleSize), ]
-  trainInd <- sample(seq_len(nrow(sampledData)), size = floor(0.8*nrow(sampledData)))
-  train <- sampledData[trainInd, ]
-  test <- sampledData[-trainInd, ]
+  sampledRows = floor(nrow(data) * part)
+  sampledData = data[sample(nrow(data), sampledRows), ]
+  trainInd = sample(seq_len(nrow(sampledData)), size = floor(0.8 * nrow(sampledData)))
   
-  train <- normalizeData(train)
-  test <- normalizeData(test)
+  sampledTrain = sampledData[trainInd, ]
+  sampledTest  = sampledData[-trainInd, ]
   
-  lastCol = ncol(train) - 1
+  sampledTrain = normalizeData(sampledTrain)
+  sampledTest  = normalizeData(sampledTest)
   
-  return (list(trainData=train[,1:lastCol], trainClasses=train[,lastCol+1], testData=test[,1:lastCol], testClasses=test[,lastCol+1]))
-}
-
-#TODO - funkcje realizujące eksperymenty
-testSVM <- function() {
+  lastCol = ncol(sampledTrain) - 1
   
-}
-
-testNaiveBayes <- function() {
-  
-}
-
-testKNN <- function() {
-  
+  return (list(
+  	train = sampledTrain[,1:lastCol],
+  	trainClasses = sampledTrain[,lastCol+1],
+  	test = sampledTest[,1:lastCol],
+  	testClasses = sampledTest[,lastCol+1]))
 }
