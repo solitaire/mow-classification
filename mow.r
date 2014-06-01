@@ -62,29 +62,19 @@ selectAttributes <- function(data) {
   #TODO
 }
 
-getSVMModel <- function(train, test, classes, kernelFunc, degree, gamma, coef0, cost) {
+getSVMModelPredictions <- function(train, test, classes, kernelFunc, degree, gamma, coef0, cost) {
   model <- svm(classes ~ ., train, probability=TRUE, scale=FALSE, kernel=kernelFunc, 
                degree=kernelDegree, gamma=kernelGamma, coef0=kernelCoef0, cost=svmCost)
-  
-  predictions <- predict(model, test, probability=FALSE)
-  rawPredictions <- attributes(predict(model, test, probability=TRUE))$probabilities
-  
-  return (list(model=model, predictions=predictions, rawPredictions=rawPredictions))
+  return (predict(model, test, probability=FALSE))
 }
 
-getKNNModel <- function(train, test, classes, knnK, KNNAlgorithm) {
-  model <- knn(train, test, classes, k=knnK, algorithm=KNNAlgorithm, prob=TRUE)
-  
-  return (list(model=model, predictions=model, rawPredictions=attr(model, "prob")))
+getKNNModelPredictions <- function(train, test, classes, knnK, KNNAlgorithm) {
+  return (knn(train, test, classes, k=knnK, algorithm=KNNAlgorithm))
 }
 
-getNaiveBayesModel <- function(train, test, classes, naiveBayesLaplace) {
+getNaiveBayesModelPredictions <- function(train, test, classes, naiveBayesLaplace) {
   model <- naiveBayes(classes ~ ., train, laplace=naiveBayesLaplace)
-  
-  predictions <- predict(model, test, type="class")
-  rawPredictions <- predict(model, test, type="raw")
-  
-  return (list(model=model, predictions=predictions, rawPredictions=rawPredictions))
+  return (predict(model, test, type="class"))
 }
 
 prepareData <- function(path, sampleSize) {
