@@ -68,7 +68,7 @@ Bayes = function(train, test, classes, naiveBayesLaplace) {
 }
 
 KNN = function(train, test, classes, K = 3, KNNAlgorithm = "kd_tree") {
-	result = knn(train, test, classes, k=K, algorithm=KNNAlgorithm)
+	result = knn(train, test, classes, k = K, algorithm = KNNAlgorithm)
   return (result[1:nrow(test)])
 }
 
