@@ -24,9 +24,9 @@ serviceMapping = list("smtp"=0, "bgp"=1, "imap4"=2, "courier"=3, "name"=4, "exec
                        "other"=50, "domain_u"=51, "urh_i"=52, "iso_tsap"=53, "netstat"=54, "daytime"=55, "whois"=56, "shell"=57,
                        "mtp"=58, "sunrpc"=59, "uucp_path"=60, "red_i"=61, "harvest"=62, "nnsp"=63, "telnet"=64, "domain"=65,
                        "ntp_u"=66, "netbios_dgm"=67, "nntp"=68, "netbios_ssn"=69)
+                       
 # mapowanie pomiędzy flagą i jej ciągłym odpowiednikiem
 flagMapping = list("REJ"=0, "SF"=1, "SH"=2, "RSTO"=3, "OTH"=4, "RSTR"=5, "RSTOS0"=6, "S0"=7, "S1"=8, "S2"=9, "S3"=10)
-
 
 loadData = function(path) {
   return (read.csv(path, stringsAsFactors=FALSE))
@@ -68,7 +68,8 @@ Bayes = function(train, test, classes, naiveBayesLaplace) {
 }
 
 KNN = function(train, test, classes, K = 3, KNNAlgorithm = "kd_tree") {
-  return (knn(train, test, classes, k=K, algorithm=KNNAlgorithm))
+	result = knn(train, test, classes, k=K, algorithm=KNNAlgorithm)
+  return (result[1:nrow(test)])
 }
 
 SVM = function(train, test, classes, kernelFunc, degree, gamma, coef0, cost) {
@@ -77,18 +78,18 @@ SVM = function(train, test, classes, kernelFunc, degree, gamma, coef0, cost) {
   return (predict(model, test, probability=FALSE))
 }
 
-# path - Path to the file with data examples.
-# part - Part of data to read, between 0 and 1 (100%).
-prepareData = function(path, part = 1) {
-  cat("Loading ", path, "... ", sep = "");
-  data = loadData(path)
-  cat("Done.\n")
+# file - Plik z wejsciowym zbiorem przykladow.
+# part - Czesc danych, ktora ma zostac odczytana. Od 0 do 1 (100%).
+prepareData = function(file, part = 1) {
+  data = loadData(file)
   
-  # podział danych na zbiór trenujący i testowy
+  # przyciecie zbioru wejsciowego
   sampledRows = floor(nrow(data) * part)
   sampledData = data[sample(nrow(data), sampledRows), ]
-  trainInd = sample(seq_len(nrow(sampledData)), size = floor(0.8 * nrow(sampledData)))
   
+  # podział danych na zbiór trenujący i testowy
+  trainRows = floor(0.8 * sampledRows)
+  trainInd = sample(seq_len(nrow(sampledData)), trainRows)
   sampledTrain = sampledData[trainInd, ]
   sampledTest  = sampledData[-trainInd, ]
   
@@ -102,4 +103,9 @@ prepareData = function(path, part = 1) {
   	trainClasses = sampledTrain[,lastCol+1],
   	test = sampledTest[,1:lastCol],
   	testClasses = sampledTest[,lastCol+1]))
+}
+
+error = function(classes, testClasses) {
+	numberOfErrors = sum(classes != testClasses)
+	return (numberOfErrors / length(classes))
 }
