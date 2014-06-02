@@ -62,7 +62,7 @@ selectAttributes = function(data) {
   #TODO
 }
 
-Bayes = function(train, test, classes, naiveBayesLaplace) {
+Bayes = function(train, test, classes, naiveBayesLaplace = 0) {
   model = naiveBayes(classes ~ ., train, laplace=naiveBayesLaplace)
   return (predict(model, test, type="class"))
 }
@@ -72,8 +72,13 @@ KNN = function(train, test, classes, K = 3, KNNAlgorithm = "kd_tree") {
   return (result[1:nrow(test)])
 }
 
-SVM = function(train, test, classes, kernelFunc, degree, gamma, coef0, cost) {
-  model = svm(classes ~ ., train, probability=TRUE, scale=FALSE, kernel=kernelFunc, 
+SVM = function(train, test, classes, 
+               kernelFunc = "radial",
+               kernelDegree = 3,
+               kernelGamma = 1 / ncol(train),
+               kernelCoef0 = 0,
+               svmCost = 1) {
+  model = svm(factor(classes) ~ ., train, probability=TRUE, scale=FALSE, kernel=kernelFunc, 
                degree=kernelDegree, gamma=kernelGamma, coef0=kernelCoef0, cost=svmCost)
   return (predict(model, test, probability=FALSE))
 }
