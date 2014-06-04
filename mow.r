@@ -83,6 +83,13 @@ SVM = function(train, test, classes,
   return (predict(model, test, probability=FALSE))
 }
 
+# generuje zbiór danych dokonując resamplingu
+# perc.over (oversampling) 
+# perc.under (undersampling)
+resampleData = function(formula, data, percOver, percUnder) {
+  return (SMOTE(formula, data, perc.over = percOver, perc.under=percUnder))
+}
+
 # file - Plik z wejsciowym zbiorem przykladow.
 # part - Czesc danych, ktora ma zostac odczytana. Od 0 do 1 (100%).
 prepareData = function(file, part = 1) {
