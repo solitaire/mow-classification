@@ -58,10 +58,10 @@ normalizeData = function(data) {
   return (data)
 }
 
-selectAttributes = function(data, classes) {
-  #TODO
-  randomForest = randomForest(classes, data, ntree=1000, keep.forest=FALSE, importance=TRUE)
-  importance(randomForest)
+selectAttributes = function(train, classes) {
+  model = randomForest(factor(classes) ~ ., data = train, ntree = 10, keep.forest = FALSE, importance = TRUE)
+  varImpPlot(model)
+  importance(model)
 }
 
 KNN = function(train, test, classes, K = 1, KNNAlgorithm = "kd_tree") {
