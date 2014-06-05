@@ -58,12 +58,14 @@ normalizeData = function(data) {
   return (data)
 }
 
-selectAttributes = function(data) {
+selectAttributes = function(data, classes) {
   #TODO
+  randomForest = randomForest(classes, data, ntree=1000, keep.forest=FALSE, importance=TRUE)
+  importance(randomForest)
 }
 
 Bayes = function(train, test, classes, naiveBayesLaplace = 0) {
-  model = naiveBayes(classes ~ ., train, laplace=naiveBayesLaplace)
+  model = naiveBayes(factor(classes) ~ ., train, laplace=naiveBayesLaplace)
   return (predict(model, test, type="class"))
 }
 
