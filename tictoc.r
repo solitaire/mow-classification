@@ -1,9 +1,12 @@
-startTime = Sys.time()
-
 tic = function() {
-  startTime = Sys.time()
+	tic = proc.time()["elapsed"]
+	assign(".tic", tic, envir=baseenv())
+	invisible(tic)
 }
 
 toc = function() {
-  return (floor(10 * (Sys.time() - startTime)) / 10)
+   toc = proc.time()["elapsed"]
+   tic = get(".tic", envir=baseenv())
+   invisible(toc)
+   return (toc - tic)
 }
