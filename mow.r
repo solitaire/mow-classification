@@ -1,7 +1,7 @@
-suppressMessages(library("FNN"))
-suppressMessages(library("e1071"))
-suppressMessages(library("DMwR"))
-suppressMessages(library("randomForest"))
+suppressMessages(library(FNN))
+suppressMessages(library(e1071))
+suppressMessages(library(DMwR))
+suppressMessages(library(randomForest))
 
 # mapowanie pomiędzy rodzajem ataku i odpowiadającą mu klasą
 classMapping = list(
@@ -64,14 +64,14 @@ selectAttributes = function(data, classes) {
   importance(randomForest)
 }
 
-Bayes = function(train, test, classes, naiveBayesLaplace = 0) {
-  model = naiveBayes(factor(classes) ~ ., train, laplace=naiveBayesLaplace)
-  return (predict(model, test, type="class"))
-}
-
 KNN = function(train, test, classes, K = 3, KNNAlgorithm = "kd_tree") {
 	result = knn(train, test, classes, k = K, algorithm = KNNAlgorithm)
   return (result[1:nrow(test)])
+}
+
+Bayes = function(train, test, classes, naiveBayesLaplace = 0) {
+  model = naiveBayes(factor(classes) ~ ., train, laplace=naiveBayesLaplace)
+  return (predict(model, test, type="class"))
 }
 
 SVM = function(train, test, classes, 

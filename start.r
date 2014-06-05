@@ -1,20 +1,19 @@
 #!/usr/bin/Rscript
 
+args = commandArgs(TRUE)
+if (length(args) == 0) {
+	stop("Usage: ./start 10percent.data.processed")
+}
+PROCESSED_FILE = args[1]
+
+source("mow.r")
 source("tictoc.r")
-
-FILE = "10percent.data"
-
 set.seed(1)
 
 tic()
-cat("Loading R libraries... ")
-source("mow.r")
-cat("Done in ", toc(), "s.\n", sep = "")
-
-tic()
-cat("Loading ", FILE, "... ", sep = "")
-data = prepareData(FILE, 0.1)
-cat("Done in ", toc(), "s.\n", sep = "")
+cat("Loading ", PROCESSED_FILE, "... ", sep = "")
+load(PROCESSED_FILE)
+cat("Done in ",  toc(), "s.\n", sep = "")
 cat(nrow(data$train), "training samples,", sum(data$trainClasses == "normal"), "have 'normal' class\n")
 cat(nrow(data$test), "test samples,", sum(data$testClasses == "normal"), "have 'normal' class\n")
 
@@ -30,8 +29,8 @@ classes = Bayes(data$train, data$test, data$trainClasses)
 cat("Done in ", toc(), "s.\n", sep = "")
 cat("Error rate: ", error(classes, data$testClasses), "\n")
 
-#tic()
-#cat("SVM... ")
-#classes = SVM(data$train, data$test, data$trainClasses)
-#cat("Done in ", toc(), "s.\n", sep = "")
-#cat("Error rate: ", error(classes, data$testClasses), "\n")
+tic()
+cat("SVM... ")
+classes = SVM(data$train, data$test, data$trainClasses)
+cat("Done in ", toc(), "s.\n", sep = "")
+cat("Error rate: ", error(classes, data$testClasses), "\n")
