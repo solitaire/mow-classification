@@ -64,7 +64,7 @@ selectAttributes = function(data, classes) {
   importance(randomForest)
 }
 
-KNN = function(train, test, classes, K = 3, KNNAlgorithm = "kd_tree") {
+KNN = function(train, test, classes, K = 1, KNNAlgorithm = "kd_tree") {
 	result = knn(train, test, classes, k = K, algorithm = KNNAlgorithm)
   return (result[1:nrow(test)])
 }
