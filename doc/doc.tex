@@ -21,24 +21,45 @@
 Projekt ma na celu analizę działania różnych algorytmów klasyfikacji zastosowanych
 w procesie wykrywania ataków sieciowych. Połączenia sieciowe można podzielić na dwa typy:
 \begin{itemize}
-	\item prawidłowe,
-	\item nieprawidłowe, naruszające bezpieczeństwo.
+	\item prawidłowe (klasa \texttt{normal})
+	\item nieprawidłowe, naruszające bezpieczeństwo
+(klasy \texttt{probe}, \texttt{DOS}, \texttt{U2R}, \texttt{R2L})
 \end{itemize}
-W ramach projektu zbadane zostaną algorytmy, które opisano w sekcji \ref{algorithms} 
-tej pracy.
+\\
+W ramach projektu zbadane zostaną następujące algorytmy:
+\begin{itemize}
+	\item k-NN
+	\item Naiwny klasyfikator Bayesa
+	\item SVM
+\end{itemize}
 
 \section{Opis wykorzystanych algorytmów}\label{algorithms}
 
+\subsection{k-NN}
+k-NN jest algorytmem, który dokonuje klasyfikacji na podstawie podobieństwa do k 
+najbardziej podobnych przykładów ze zbioru uczącego. W~celu oszacowania podobieństwa 
+poszczególnych próbek, stosowane są miary odległości takie jak np. metryka euklidesowa lub Manhattan. 
+Klasa, która przypisywana jest do badanego obiektu ustalana jest na podstawie klasy 
+reprezentowanej przez największą spośród wybranych wcześniej k przykładów.
+
+Algorytm k-NN zostanie przetestowany z~wykorzystaniem funkcji 
+\texttt{knn} oferowanej przez pakiet \texttt{FNN} języka~R 
+\footnote{\url{http://cran.r-project.org/web/packages/FNN/}}.
+
 \subsection{Naiwny klasyfikator Bayesa}
 
-Klasyfikator Bayesa wybiera klasę, która jest najbardziej prawdopodna dla danego przykładu na podstawie prawdopodobieństwa
-warunkowego $P(c \mid x)$, gdzie $c$ oznacza etykietę klasy, a $x$ jest przykładem. Jest to tzw. prawdopodobieństwo
+Klasyfikator Bayesa wybiera klasę, która jest najbardziej prawdopodna dla danego przykładu na 
+podstawie prawdopodobieństwa
+warunkowego $P(c \mid x)$, gdzie $c$ oznacza etykietę klasy, a $x$ jest przykładem. 
+Jest to tzw. prawdopodobieństwo
 \textit{a posteriori}. Wyznaczane jest ze wzoru:
 
 $$ P(c \mid x) = \frac{P(x \mid c)P(c)}{P(x)} $$
 
-Przy poszukiwaniu maksimum $P(c \mid x)$ mianownik $P(x)$ można pominąć bez zmiany wyniku maksymalizacji.
-Prawdopodobieństwo \textit{a posteriori} $P(c)$ można oszacować na podstawie częstości występowania klas w zbiorze treningowym.
+Przy poszukiwaniu maksimum $P(c \mid x)$ mianownik $P(x)$ można pominąć bez zmiany wyniku 
+maksymalizacji.
+Prawdopodobieństwo \textit{a posteriori} $P(c)$ można oszacować na podstawie częstości 
+występowania klas w zbiorze treningowym.
 Natomiast prawdopodobieństwo $P(x \mid c)$ jest szacowane ze wzoru:
 
 $$ P(x \mid c) = \prod_{i=1}^n P(a_i(x) \mid c)$$
@@ -50,15 +71,16 @@ Na tym polega ,,naiwność'' klasyfikatora Bayesa.
 Naiwny klasyfikator Bayesa zostanie przetestowany przy pomocy funkcji \texttt{naiveBayes} z~pakietu \texttt{e1071} języka~R
 \footnote{\url{http://www-users.cs.york.ac.uk/~jc/teaching/arin/R_practical/}}.
 
-\subsection{k-NN}
-k-NN jest algorytmem, który dokonuje klasyfikacji na podstawie podobieństwa do k najbardziej podobnych przykładów ze zbioru uczącego. W~celu oszacowania podobieństwa poszczególnych próbek, stosowane są miary odległości takie jak np. metryka euklidesowa lub Manhattan. Klasa, która przypisywana jest do badanego obiektu ustalana jest na podstawie klasy reprezentowanej przez największą spośród wybranych wcześniej k przykładów.
-
-Algorytm k-NN zostanie przetestowany z~wykorzystaniem funkcji \texttt{knn} oferowanej przez pakiet \texttt{FNN} języka~R \footnote{\url{http://cran.r-project.org/web/packages/FNN/}}.
-
 \subsection{SVM}
-SVM jest klasyfikatorem binarnym, który ma na celu wyznaczenie hiperpłaszczyzny rozdzielającej z~maksymalnym marginesem przykłady należące do dwóch klas. W~ramach projektu realizowana będzie klasyfikacja mająca na celu przypisanie połączeń sieciowych do jednej z~pięciu klas. Problem klasyfikacji wieloklasowej może być zdekomponowany do szeregu problemów klasyfikacji binarnej. W~projekcie wykorzystane zostanie podejście \textit{one-against-one}, które polega na zbudowaniu klasyfikatora SVM dla każdej pary klas. 
+SVM jest klasyfikatorem binarnym, który ma na celu wyznaczenie hiperpłaszczyzny rozdzielającej 
+z~maksymalnym marginesem przykłady należące do dwóch klas. W~ramach projektu realizowana będzie 
+klasyfikacja mająca na celu przypisanie połączeń sieciowych do jednej z~pięciu klas. 
+Problem klasyfikacji wieloklasowej może być zdekomponowany do szeregu problemów klasyfikacji binarnej. 
+W~projekcie wykorzystane zostanie podejście \textit{one-against-one}, 
+które polega na zbudowaniu klasyfikatora SVM dla każdej pary klas. 
 
-Do przetestowania klasyfikatora SVM zostanie wykorzystana funkcja \texttt{svm} z~pakietu \texttt{e1071} języka~R \footnote{\url{http://cran.r-project.org/web/packages/e1071/}}.
+Do przetestowania klasyfikatora SVM zostanie wykorzystana funkcja \texttt{svm} z~pakietu 
+\texttt{e1071} języka~R \footnote{\url{http://cran.r-project.org/web/packages/e1071/}}.
 
 \section{Plan badań}
 
@@ -89,11 +111,11 @@ zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze t
 Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu klas:
 
 \begin{enumerate}
- \item \texttt{normal} -- połączenia prawidłowe.
- \item \texttt{probe} -- odpytywanie, np. skanowanie portów.
- \item \texttt{DOS} -- ataki typu Denial of Service.
- \item \texttt{U2R} -- przejęcie praw administratora lokalnej maszyny, np. ataki przepełnienia bufora.
- \item \texttt{R2L} -- nieautoryzowany dostęp ze zdalnej maszyny, np. zgadywanie hasła.
+ \item \texttt{normal} -- połączenia prawidłowe
+ \item \texttt{probe} -- odpytywanie, np. skanowanie portów
+ \item \texttt{DOS} -- ataki typu Denial of Service
+ \item \texttt{U2R} -- przejęcie praw administratora lokalnej maszyny, np. ataki przepełnienia bufora
+ \item \texttt{R2L} -- nieautoryzowany dostęp ze zdalnej maszyny, np. zgadywanie hasła
 \end{enumerate}
 
 Na początku dane zostaną przejrzane w poszukiwaniu pojedynczych wartości odstających
@@ -105,21 +127,21 @@ a~następnie przeskalujemy wszystkie wartości, tak aby miały taki sam rząd wi
 \subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
 Poniżej przedstawiono parametry algorytmów, które będą analizowane.
 
-\subsubsection*{Naiwny klasyfikator Bayesa}
-\begin{itemize}
-	\item wygładzanie Laplace'a.
-\end{itemize}
-
 \subsubsection*{k-NN}
 \begin{itemize}
-	\item wartość parametru $k$,
-	\item algorytm wyszukiwania najbliższego sąsiada.
+	\item wartość parametru $k$
+	\item algorytm wyszukiwania najbliższego sąsiada
+\end{itemize}
+
+\subsubsection*{Naiwny klasyfikator Bayesa}
+\begin{itemize}
+	\item wygładzanie Laplace'a
 \end{itemize}
 
 \subsubsection*{SVM}
 \begin{itemize}
- \item rodzaj jądra oraz parametry charakterystyczne dla poszczególnych typów,
- \item wagi poszczególnych klas.
+ \item rodzaj jądra oraz parametry charakterystyczne dla poszczególnych typów
+ \item wagi poszczególnych klas
 \end{itemize}
 
 \subsection{Sposób oceny jakości modelu}
