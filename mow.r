@@ -59,7 +59,7 @@ normalizeData = function(data) {
 }
 
 selectAttributes = function(train, classes) {
-  model = randomForest(factor(classes) ~ ., data = train, ntree = 10, keep.forest = FALSE, importance = TRUE)
+  model = randomForest(factor(classes) ~ ., data = train, ntree = 1000, keep.forest = FALSE, importance = TRUE)
   varImpPlot(model)
   importance(model)
 }
