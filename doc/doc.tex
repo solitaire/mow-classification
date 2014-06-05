@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{float}
+\usepackage{amsfonts}
 
 \title{Metody odkrywania wiedzy -- wykrywanie ataków sieciowych}
 \author{Adam Stelmaszczyk\\ Anna Stępień}
@@ -24,14 +25,7 @@ w procesie wykrywania ataków sieciowych. Połączenia sieciowe można podzieli�
 	\item prawidłowe (klasa \texttt{normal})
 	\item nieprawidłowe, naruszające bezpieczeństwo
 (klasy \texttt{probe}, \texttt{DOS}, \texttt{U2R}, \texttt{R2L})
-\end{itemize}
-\\
-W ramach projektu zbadane zostaną następujące algorytmy:
-\begin{itemize}
-	\item k-NN
-	\item Naiwny klasyfikator Bayesa
-	\item SVM
-\end{itemize}
+\end{itemize} 
 
 \section{Opis wykorzystanych algorytmów}\label{algorithms}
 
@@ -105,7 +99,71 @@ pod adresem: \\
 \url{www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection}.
 
 Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego.
-Każdy przykład ma 42 atrybuty.
+Każdy przykład ma 42 atrybuty: \\
+
+\begin{tabular}{ | c | p{3cm} | p{3cm} | p{6cm} | } \hline
+$i$ & Nazwa & Opis & Zbiór wartości \\ \hline
+0      & duration & length (number of seconds) of the connection & $\mathbb{Z}$ \\ \hline
+1      & protocol\_type & type of the protocol & icmp, tcp, udp \\ \hline
+2      & service & network service on the destination & smtp, bgp, imap4, courier, name, exec, ftp, echo, http\_2784,
+                       http\_443, discard, kshell, login, http, Z39\_50, vmnet, supdup,
+                       gopher, printer, aol, tftp\_u, csnet\_ns, http\_8001, eco\_i, time,
+                       ssh, efs, hostnames, X11, klogin, sql\_net, ldap, private,
+                       auth, uucp, pm\_dump, link, ctf, IRC, ecr\_i, netbios\_ns, urp\_i,
+                       pop\_2, pop\_3, rje, systat, ftp\_data,finger, tim\_i, remote\_job,
+                       other, domain\_u, urh\_i, iso\_tsap, netstat, daytime, whois, shell,
+                       mtp, sunrpc, uucp\_path, red\_i, harvest, nnsp, telnet, domain,
+                       ntp\_u, netbios\_dgm, nntp, netbios\_ssn \\ \hline
+3      & flag & normal or error status of the connection  & REJ, SF, SH, RSTO, OTH, RSTR, RSTOS0, S0, S1, S2, S3 \\ \hline
+4      & src\_bytes  & number of data bytes from source to destination  & $\mathbb{Z}$ \\ \hline
+5      & dst\_bytes  & number of data bytes from destination to source  & $\mathbb{Z}$ \\ \hline
+6      & land & 1 if connection is from/to the same host/port; 0 otherwise  & 0, 1 \\ \hline
+7      & wrong\_fragment  & number of ``wrong'' fragments  & $\mathbb{Z}$ \\ \hline
+8      & urgent  & number of urgent packets   & $\mathbb{Z}$ \\ \hline
+\end{tabular}
+
+\begin{tabular}{ | c | l | p{6,5cm} | p{1,5cm} | } \hline
+$i$ & Nazwa & Opis & Zbiór wartości \\ \hline
+8      & hot & number of ``hot'' indicators  & $\mathbb{Z}$ \\ \hline
+9      & num\_failed\_logins  & number of failed login attempts   & $\mathbb{Z}$ \\ \hline
+10      & logged\_in  & 1 if successfully logged in; 0 otherwise   & $\mathbb{Z}$ \\ \hline
+11      & num\_compromised & number of ``compromised'' conditions   &  0, 1 \\ \hline
+12      & root\_shell  & 1 if root shell is obtained; 0 otherwise  &  0, 1 \\ \hline
+13      & su\_attempted  & 1 if ``su root'' command attempted; 0 otherwise &  0, 1 \\ \hline
+14      & num\_root  & number of ``root'' accesses   & $\mathbb{Z}$ \\ \hline
+15      & num\_file\_creations  & number of file creation operations   & $\mathbb{Z}$ \\ \hline
+16      & num\_shells  & number of shell prompts  & $\mathbb{Z}$ \\ \hline
+17      & num\_access\_files  & number of operations on access control files  & $\mathbb{Z}$ \\ \hline
+18      & num\_outbound\_cmds & number of outbound commands in an ftp session   & $\mathbb{Z}$ \\ \hline
+19      & is\_hot\_login  & 1 if the login belongs to the ``hot'' list; 0 otherwise   &  0, 1 \\ \hline
+20      & is\_guest\_login  & 1 if the login is a ``guest''login; 0 otherwise  &  0, 1 \\ \hline
+21     & count & number of connections to the same host as the current connection in the past two seconds  & $\mathbb{Z}$ \\ \hline
+\end{tabular}
+
+\begin{tabular}{ | c | l | p{4,5cm} | p{4cm} | } \hline
+$i$ & Nazwa & Opis & Zbiór wartości \\ \hline
+22     & srv\_count   & number of connections to the same service as the current connection in the past two seconds  &  $\mathbb{Z}$ \\ \hline
+23      & serror\_rate   & \% of connections that have ``SYN'' errors    & $\mathbb{Z}$ \\ \hline
+24      & srv\_serror\_rate   & \% of connections that have ``SYN'' errors    & $\mathbb{Z}$ \\ \hline
+25      & rerror\_rate   & \% of connections that have ``REJ'' errors   & $\mathbb{Z}$ \\ \hline
+26      & srv\_rerror\_rate   & \% of connections that have ``REJ'' errors   & $\mathbb{Z}$ \\ \hline
+27      & same\_srv\_rate  & \% of connections to the same service   &  $\mathbb{Z}$ \\ \hline
+28     & diff\_srv\_rate  & \% of connections to different services  &  $\mathbb{Z}$ \\ \hline  
+29      & srv\_diff\_host\_rate   & \% of connections to different hosts   & $\mathbb{Z}$ \\ \hline
+30     & dst\_host\_count & ?   &  $\mathbb{Z}$ \\ \hline
+31      & dst\_host\_srv\_count  & ?    & $\mathbb{Z}$ \\ \hline
+32      & dst\_host\_same\_srv\_rate  & ?    & $\mathbb{Z}$ \\ \hline
+33      & dst\_host\_diff\_srv\_rate  & ?  & $\mathbb{Z}$ \\ \hline
+34      & dst\_host\_same\_src\_port\_rate & ?   & $\mathbb{Z}$ \\ \hline
+35      & dst\_host\_srv\_diff\_host\_rate & ?  &  $\mathbb{Z}$ \\ \hline
+36     &  dst\_host\_serror\_rate       & ?      &  $\mathbb{Z}$ \\ \hline  
+37      & dst\_host\_srv\_serror\_rate & ? & $\mathbb{Z}$ \\ \hline
+38     & dst\_host\_srv\_serror\_rate   & ?   & $\mathbb{Z}$ \\ \hline
+39      & dst\_host\_rerror\_rate   & ?  & $\mathbb{Z}$ \\ \hline
+40      & dst\_host\_srv\_rerror\_rate & ?   & $\mathbb{Z}$ \\ \hline
+41      & class & attack type  & back, buffer\_overflow, ftp\_write, guess\_passwd, imap, ipsweep, land, loadmodule, multihop, neptune, nmap, normal, perl, phf, pod, portsweep, rootkit, satan, smurf, spy, teardrop, warezclient, warezmaster \\ \hline
+\end{tabular} \\\\
+
 Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz
 zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze treningowym.
 Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu klas:
