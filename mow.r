@@ -11,7 +11,7 @@ columns = c("duration", "protocol_type", "service", "flag", "src_bytes", "dst_by
 			"srv_rerror_rate", "same_srv_rate", "diff_srv_rate", "srv_diff_host_rate",
       "dst_host_count", "dst_host_srv_count", "dst_host_same_srv_rate",
 			"dst_host_diff_srv_rate", "dst_host_same_src_port_rate", "dst_host_srv_diff_host_rate",
-			"dst_host_serror_rate", "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate", "class")
+			"dst_host_serror_rate", "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate", "attack_type")
 
 # mapowanie pomiędzy rodzajem ataku i odpowiadającą mu klasą
 classMapping = list(
