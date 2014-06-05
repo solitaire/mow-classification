@@ -3,6 +3,16 @@ suppressMessages(library(e1071))
 suppressMessages(library(DMwR))
 suppressMessages(library(randomForest))
 
+# nazwy kolumn
+columns = c("duration", "protocol_type", "service", "flag", "src_bytes", "dst_bytes", "land", 
+			"wrong_fragment", "urgent", "hot", "num_failed_logins", "logged_in", "num_compromised", "root_shell", 
+			"su_attempted", "num_root", "num_file_creations", "num_shells", "num_access_files", "num_outbound_cmds",
+			"is_host_login", "is_guest_login", "count", "srv_count", "serror_rate", "srv_serror_rate", "rerror_rate", 
+			"srv_rerror_rate", "same_srv_rate", "diff_srv_rate", "srv_diff_host_rate",
+      "dst_host_count", "dst_host_srv_count", "dst_host_same_srv_rate",
+			"dst_host_diff_srv_rate", "dst_host_same_src_port_rate", "dst_host_srv_diff_host_rate",
+			"dst_host_serror_rate", "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate", "class")
+
 # mapowanie pomiędzy rodzajem ataku i odpowiadającą mu klasą
 classMapping = list(
   "back."="dos", "land."="dos", "neptune."="dos", "pod."="dos", "smurf."="dos", "teardrop."="dos",
@@ -88,18 +98,20 @@ SVM = function(train, test, classes,
 # generuje zbiór danych dokonując resamplingu
 # perc.over (oversampling) 
 # perc.under (undersampling)
-resampleData = function(formula, data, percOver, percUnder) {
-  return (SMOTE(formula, data, perc.over = percOver, perc.under=percUnder))
+resampleData = function(classes, fullData, percOver, percUnder) {
+  return (SMOTE(classes ~ ., fullData, perc.over = percOver, perc.under=percUnder, k=10))
 }
 
 # file - Plik z wejsciowym zbiorem przykladow.
 # part - Czesc danych, ktora ma zostac odczytana. Od 0 do 1 (100%).
 prepareData = function(file, part = 1) {
   data = loadData(file)
+  colnames(data) = columns
   
   # przyciecie zbioru wejsciowego
   sampledRows = floor(nrow(data) * part)
   sampledData = data[sample(nrow(data), sampledRows), ]
+  
   
   # podział danych na zbiór trenujący i testowy
   trainRows = floor(0.8 * sampledRows)

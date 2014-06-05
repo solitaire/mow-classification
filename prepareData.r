@@ -9,6 +9,7 @@ PROCESSED_FILE = paste(FILE, ".processed", sep = "")
 
 source("mow.r")
 source("tictoc.r")
+set.seed(1)
 
 tic()
 cat("Processing ", FILE, "... ", sep = "")
