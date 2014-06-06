@@ -15,10 +15,10 @@ columns = c("duration", "protocol_type", "service", "flag", "src_bytes", "dst_by
 
 # mapowanie pomiędzy rodzajem ataku i odpowiadającą mu klasą
 classMapping = list(
-  "back."="dos", "land."="dos", "neptune."="dos", "pod."="dos", "smurf."="dos", "teardrop."="dos",
-  "buffer_overflow."="u2r", "loadmodule."="u2r", "perl."="u2r", "rootkit."="u2r",
-  "ftp_write."="r2l", "guess_passwd."="r2l", "imap."="r2l", "multihop."="r2l", "phf."="r2l", "spy."="r2l", "warezclient."="r2l", "warezmaster."="r2l",
-  "ipsweep."="probe", "nmap."="probe", "portsweep."="probe", "satan."="probe",
+  "back."="dos", "land."="dos", "neptune."="dos", "pod."="dos", "smurf."="dos", "teardrop."="dos", "apache2."="dos", "mailbomb."="dos", "processtable."="dos", "udpstorm."="dos",
+  "buffer_overflow."="u2r", "loadmodule."="u2r", "perl."="u2r", "rootkit."="u2r", "flow."="u2r", "httptunnel."="u2r", "ps."="u2r", "sqlattack."="u2r", "xterm."="u2r",
+  "ftp_write."="r2l", "guess_passwd."="r2l", "imap."="r2l", "multihop."="r2l", "phf."="r2l", "spy."="r2l", "warezclient."="r2l", "warezmaster."="r2l", "snmpgetattack."="r2l", "named."="r2l", "xlock."="r2l", "xsnoop."="r2l", "sendmail."="r2l", "worm."="r2l", "snmpguess."="r2l",
+  "ipsweep."="probe", "nmap."="probe", "portsweep."="probe", "satan."="probe", "saint."="probe", "mscan."="probe",
   "normal."="normal")
 
 # mapowanie pomiędzy typem protokołu i jej ciągłym odpowiednikiem
@@ -33,7 +33,7 @@ serviceMapping = list("smtp"=0, "bgp"=1, "imap4"=2, "courier"=3, "name"=4, "exec
                        "pop_2"=42, "pop_3"=43, "rje"=44, "systat"=45, "ftp_data"=46,"finger"=47, "tim_i"=48, "remote_job"=49,
                        "other"=50, "domain_u"=51, "urh_i"=52, "iso_tsap"=53, "netstat"=54, "daytime"=55, "whois"=56, "shell"=57,
                        "mtp"=58, "sunrpc"=59, "uucp_path"=60, "red_i"=61, "harvest"=62, "nnsp"=63, "telnet"=64, "domain"=65,
-                       "ntp_u"=66, "netbios_dgm"=67, "nntp"=68, "netbios_ssn"=69)
+                       "ntp_u"=66, "netbios_dgm"=67, "nntp"=68, "netbios_ssn"=69, "icmp"=70)
                        
 # mapowanie pomiędzy flagą i jej ciągłym odpowiednikiem
 flagMapping = list("REJ"=0, "SF"=1, "SH"=2, "RSTO"=3, "OTH"=4, "RSTR"=5, "RSTOS0"=6, "S0"=7, "S1"=8, "S2"=9, "S3"=10)
@@ -109,34 +109,29 @@ resampleData = function(classes, fullData, percOver, percUnder) {
 
 # file - Plik z wejsciowym zbiorem przykladow.
 # part - Czesc danych, ktora ma zostac odczytana. Od 0 do 1 (100%).
-prepareData = function(file, part = 1) {
-  data = loadData(file)
-  colnames(data) = columns
+prepareData = function(trainFile, testFile, part = 1) {
+  trainData = loadData(trainFile)
+  testData = loadData(testFile)
+  colnames(trainData) = columns
+  colnames(testData) = columns
   
   # przyciecie zbioru wejsciowego
-  sampledRows = floor(nrow(data) * part)
-  sampledData = data[sample(nrow(data), sampledRows), ]
+  sampledRows = floor(nrow(trainData) * part)
+  trainData = trainData[sample(nrow(trainData), sampledRows), ]
   
+  trainData = normalizeData(trainData)
+  testData  = normalizeData(testData)
   
-  # podział danych na zbiór trenujący i testowy
-  trainRows = floor(0.8 * sampledRows)
-  trainInd = sample(seq_len(nrow(sampledData)), trainRows)
-  sampledTrain = sampledData[trainInd, ]
-  sampledTest  = sampledData[-trainInd, ]
+  trainData = subset(trainData, select=selectedAttributes)
+  testData = subset(testData, select=selectedAttributes)
   
-  sampledTrain = normalizeData(sampledTrain)
-  sampledTest  = normalizeData(sampledTest)
-  
-  sampledTrain = subset(sampledTrain, select=selectedAttributes)
-  sampledTest = subset(sampledTest, select=selectedAttributes)
-  
-  lastCol = ncol(sampledTrain) - 1
+  lastCol = ncol(trainData) - 1
   
   return (list(
-  	train = sampledTrain[,1:lastCol],
-  	trainClasses = sampledTrain[,lastCol+1],
-  	test = sampledTest[,1:lastCol],
-  	testClasses = sampledTest[,lastCol+1]))
+  	train = trainData[,1:lastCol],
+  	trainClasses = trainData[,lastCol+1],
+  	test = testData[,1:lastCol],
+  	testClasses = testData[,lastCol+1]))
 }
 
 error = function(classes, testClasses) {
