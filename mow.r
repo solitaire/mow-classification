@@ -9,7 +9,7 @@ columns = c("duration", "protocol_type", "service", "flag", "src_bytes", "dst_by
 			"su_attempted", "num_root", "num_file_creations", "num_shells", "num_access_files", "num_outbound_cmds",
 			"is_host_login", "is_guest_login", "count", "srv_count", "serror_rate", "srv_serror_rate", "rerror_rate", 
 			"srv_rerror_rate", "same_srv_rate", "diff_srv_rate", "srv_diff_host_rate",
-      "dst_host_count", "dst_host_srv_count", "dst_host_same_srv_rate",
+            "dst_host_count", "dst_host_srv_count", "dst_host_same_srv_rate",
 			"dst_host_diff_srv_rate", "dst_host_same_src_port_rate", "dst_host_srv_diff_host_rate",
 			"dst_host_serror_rate", "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate", "attack_type")
 
@@ -37,6 +37,11 @@ serviceMapping = list("smtp"=0, "bgp"=1, "imap4"=2, "courier"=3, "name"=4, "exec
                        
 # mapowanie pomiędzy flagą i jej ciągłym odpowiednikiem
 flagMapping = list("REJ"=0, "SF"=1, "SH"=2, "RSTO"=3, "OTH"=4, "RSTR"=5, "RSTOS0"=6, "S0"=7, "S1"=8, "S2"=9, "S3"=10)
+
+# wybrany za pomocą importance zbiór kolumn
+selectedAttributes = c("count", "dst_bytes", "src_bytes", "logged_in", "service", "dst_host_same_src_port_rate",
+					   "srv_count", "protocol_type", "dst_host_srv_diff_host_rate", "duration", "srv_diff_host_rate",
+					   "dst_host_diff_srv_rate", "same_srv_rate", "dst_host_serror_rate", "attack_type")
 
 loadData = function(path) {
   return (read.csv(path, stringsAsFactors=FALSE))
@@ -121,6 +126,9 @@ prepareData = function(file, part = 1) {
   
   sampledTrain = normalizeData(sampledTrain)
   sampledTest  = normalizeData(sampledTest)
+  
+  sampledTrain = subset(sampledTrain, select=selectedAttributes)
+  sampledTest = subset(sampledTest, select=selectedAttributes)
   
   lastCol = ncol(sampledTrain) - 1
   
