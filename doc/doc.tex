@@ -115,33 +115,29 @@ $i$ & Nazwa & Opis & Zbiór wartości \\ \hline
                        mtp, sunrpc, uucp\_path, red\_i, harvest, nnsp, telnet, domain,
                        ntp\_u, netbios\_dgm, nntp, netbios\_ssn \\ \hline
 3      & flag & status połączenia & REJ, SF, SH, RSTO, OTH, RSTR, RSTOS0, S0, S1, S2, S3 \\ \hline
-4      & src\_bytes  & przesłane bajty & $\mathbb{Z}$ \\ \hline
-5      & dst\_bytes  & pobrane bajty   & $\mathbb{Z}$ \\ \hline
-6      & land & 1, jeśli połączeni z/do ma tego samego hosta/port & 0, 1 \\ \hline
+4      & src\_bytes  & bajty przesłane w połączeniu & $\mathbb{Z}$ \\ \hline
+5      & dst\_bytes  & bajty pobrane w połączeniu  & $\mathbb{Z}$ \\ \hline
+6      & land & 1, jeśli źródło oraz cel połączenia ma tego samego hosta i port & 0, 1 \\ \hline
 7      & wrong\_fragment  & liczba pakietów oznaczonych jako ,,wrong'' & $\mathbb{Z}$ \\ \hline
 8      & urgent  & liczba pakietów oznaczonych jako ,,urgent''  & $\mathbb{Z}$ \\ \hline
 \end{tabular}
 
 \begin{tabular}{ | c | l | p{6,5cm} | p{1,5cm} | } \hline
 $i$ & Nazwa & Opis & Zbiór wartości \\ \hline
-9      & hot & liczba wskaźników ,,hot'' & $\mathbb{Z}$ \\ \hline
-10      & num\_failed\_logins  & liczba nieudanych prób logowania & $\mathbb{Z}$ \\ \hline
+9      & hot & liczba wskaźników ,,hot'' dla akcji, np. uruchamianie programów & $\mathbb{Z}$ \\ \hline
+10      & num\_failed\_logins  & liczba nieudanych prób logowania w połączeniu & $\mathbb{Z}$ \\ \hline
 11      & logged\_in  & 1, jeśli udało się zalogować &  0, 1 \\ \hline
-12      & num\_compromised & number of ``compromised'' conditions   &  $\mathbb{Z}$ \\ \hline
-13      & root\_shell  & 1, jeśli uzyskano konsolę z uprawnieniami root'a  &  0, 1 \\ \hline
-14      & su\_attempted  & 1, jeśli próbwano użyć komendy ,,su root'' &  0, 1 \\ \hline
-15      & num\_root  & liczba dostępów jako root  & $\mathbb{Z}$ \\ \hline
+12      & num\_compromised & liczba wystąpień błędu ,,not found'' podczas połączenia &  $\mathbb{Z}$ \\ \hline
+13      & root\_shell  & 1, jeśli uzyskano konsolę z uprawnieniami root  &  0, 1 \\ \hline
+14      & su\_attempted  & 1, jeśli użyto komendy \texttt{su} &  0, 1 \\ \hline
+15      & num\_root  & liczba operacji wykonanych jako root  & $\mathbb{Z}$ \\ \hline
 16      & num\_file\_creations  & liczba utworzonych plików  & $\mathbb{Z}$ \\ \hline
-17      & num\_shells  & liczba poleceń w konsoli & $\mathbb{Z}$ \\ \hline
+17      & num\_shells  & liczba zalogowań jako normalny użytkownik & $\mathbb{Z}$ \\ \hline
 18      & num\_access\_files  & liczba operacji na plikach kontroli dostępu & $\mathbb{Z}$ \\ \hline
-19      & num\_outbound\_cmds & liczba poleceń w sesji FTP & $\mathbb{Z}$ \\ \hline
-20      & is\_hot\_login  & 1, jeśli login należy to listy ,,hot'' &  0, 1 \\ \hline
+19      & num\_outbound\_cmds & liczba poleceń wychodzących w sesji FTP & $\mathbb{Z}$ \\ \hline
+20      & is\_hot\_login  & 1, jeśli login należy to listy ,,hot'', tzn. jeśli loguje się jako root albo adm &  0, 1 \\ \hline
 21      & is\_guest\_login  & 1, jeśli login należy to listy ,,guest'' &  0, 1 \\ \hline
 22     & count & liczba połączeń do tego samego hosta w przęciągu 2 sekund & $\mathbb{Z}$ \\ \hline
-\end{tabular}
-
-\begin{tabular}{ | c | l | p{4,5cm} | p{4cm} | } \hline
-$i$ & Nazwa & Opis & Zbiór wartości \\ \hline
 23      & srv\_count   & liczba połączeń z tą samą usługą w przeciągu 2 sekund &  $\mathbb{Z}$ \\ \hline
 24      & serror\_rate        & \% połączeń o tym samym hoście z błędami SYN  & $\mathbb{Z}$ \\ \hline
 25      & srv\_serror\_rate   & \% połączeń do tej samej usługi z błędami SYN & $\mathbb{Z}$ \\ \hline
@@ -150,18 +146,27 @@ $i$ & Nazwa & Opis & Zbiór wartości \\ \hline
 28      & same\_srv\_rate     & \% połączeń do tej samej usługi  &  $\mathbb{Z}$ \\ \hline
 29      & diff\_srv\_rate     & \% połączeń do różnych usług &  $\mathbb{Z}$ \\ \hline  
 30      & srv\_diff\_host\_rate   & \% połączeń do różnych hostów   & $\mathbb{Z}$ \\ \hline
-31      & dst\_host\_count & ?   &  $\mathbb{Z}$ \\ \hline
-32      & dst\_host\_srv\_count  & ?    & $\mathbb{Z}$ \\ \hline
-33      & dst\_host\_same\_srv\_rate  & ?    & $\mathbb{Z}$ \\ \hline
-34      & dst\_host\_diff\_srv\_rate  & ?  & $\mathbb{Z}$ \\ \hline
-35      & dst\_host\_same\_src\_port\_rate & ?   & $\mathbb{Z}$ \\ \hline
-36      & dst\_host\_srv\_diff\_host\_rate & ?  &  $\mathbb{Z}$ \\ \hline
-37      & dst\_host\_serror\_rate       & ?      &  $\mathbb{Z}$ \\ \hline  
-38      & dst\_host\_srv\_serror\_rate & ? & $\mathbb{Z}$ \\ \hline
-39      & dst\_host\_srv\_serror\_rate   & ?   & $\mathbb{Z}$ \\ \hline
-40      & dst\_host\_rerror\_rate   & ?  & $\mathbb{Z}$ \\ \hline
-41      & dst\_host\_srv\_rerror\_rate & ?   & $\mathbb{Z}$ \\ \hline
-42      & attack\_type & rodzaj ataku sieciowego & back, buffer\_overflow, ftp\_write, guess\_passwd, imap, ipsweep, land, loadmodule, multihop, neptune, nmap, normal, perl, phf, pod, portsweep, rootkit, satan, smurf, spy, teardrop, warezclient, warezmaster \\ \hline
+\end{tabular}
+
+\begin{tabular}{ | c | l | p{5,4cm} | p{1,5cm} | } \hline
+$i$ & Nazwa & Opis & Zbiór wartości \\ \hline
+31      & dst\_host\_count & liczba połączeń do tego samego adresu IP  &  $\mathbb{Z}$ \\ \hline
+32      & dst\_host\_srv\_count  & liczba połączeń do tego samego portu docelowego   & $\mathbb{Z}$ \\ \hline
+33      & dst\_host\_same\_srv\_rate  & \% połączeń do tej samej usługi w stosunku do liczby połączeń do tego samego adresu IP (atrybut 31) & $\mathbb{R}$ \\ \hline
+34      & dst\_host\_diff\_srv\_rate  & \% połączeń do tej różnych usług w stosunku do liczby połączeń do tego samego adresu IP (atrybut 31) & $\mathbb{R}$ \\ \hline
+35      & dst\_host\_same\_src\_port\_rate & \% połączeń do tego samego portu źródłowego w stosunku do liczby połączeń do tego samego portu docelowego (atrybut 32)  & $\mathbb{R}$ \\ \hline
+36      & dst\_host\_srv\_diff\_host\_rate & \% połączeń do różnych portów źródłowych w stosunku do liczby połączeń do tego samego portu docelowego (atrybut 32)  &  $\mathbb{R}$ \\ \hline
+
+37      & dst\_host\_serror\_rate       & \% połączeń o tym samym hoście z błędami SYN w stosunku do atrybutu 31        &  $\mathbb{R}$ \\ \hline  
+38      & dst\_host\_srv\_serror\_rate  & \% połączeń o tym samym hoście z błędami SYN w stosunku do atrybutu 32 & $\mathbb{R}$ \\ \hline
+
+39      & dst\_host\_rerror\_rate        & \% połączeń o tym samym hoście z błędami REJ w stosunku do atrybutu 31 & $\mathbb{R}$ \\ \hline
+40      & dst\_host\_srv\_rerror\_rate   & \% połączeń o tym samym hoście z błędami REJ w stosunku do atrybutu 32    & $\mathbb{R}$ \\ \hline
+\end{tabular}
+
+\begin{tabular}{ | c | l | p{4,5cm} | p{5,3cm} | } \hline
+$i$ & Nazwa & Opis & Zbiór wartości \\ \hline
+41      & attack\_type & rodzaj ataku sieciowego & back, buffer\_overflow, ftp\_write, guess\_passwd, imap, ipsweep, land, loadmodule, multihop, neptune, nmap, normal, perl, phf, pod, portsweep, rootkit, satan, smurf, spy, teardrop, warezclient, warezmaster \\ \hline
 \end{tabular} \\\\
 
 Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz
