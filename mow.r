@@ -18,7 +18,7 @@ classMapping = list(
   "back."="dos", "land."="dos", "neptune."="dos", "pod."="dos", "smurf."="dos", "teardrop."="dos",
   "buffer_overflow."="u2r", "loadmodule."="u2r", "perl."="u2r", "rootkit."="u2r",
   "ftp_write."="r2l", "guess_passwd."="r2l", "imap."="r2l", "multihop."="r2l", "phf."="r2l", "spy."="r2l", "warezclient."="r2l", "warezmaster."="r2l",
-  "ipsweep."="probe", "nmap."="nmap", "portsweep."="probe", "satan."="probe",
+  "ipsweep."="probe", "nmap."="probe", "portsweep."="probe", "satan."="probe",
   "normal."="normal")
 
 # mapowanie pomiędzy typem protokołu i jej ciągłym odpowiednikiem
