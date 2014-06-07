@@ -1,0 +1,12 @@
+Loading 100percent.data.processed... Done in 12.88s.
+4898430 training samples, 972780 have 'normal' class
+311028 test samples, 60592 have 'normal' class
+7NN... Done in 615.128s.
+Error rate:  0.07761359 
+       normal probe    dos u2r r2l
+normal  59961   503    125   0   3
+probe     520  3152    494   0   0
+dos      6037   657 223159   0   0
+u2r       218     4      0   6   0
+r2l     15572     4      3   0 610
+
