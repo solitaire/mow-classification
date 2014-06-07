@@ -107,9 +107,9 @@ SVM = function(train, test, classes,
                kernelDegree = 3,
                kernelGamma = 1 / ncol(train),
                kernelCoef0 = 0,
-               svmCost = 1) {
+               classWeights= NULL) {
   model = svm(factor(classes) ~ ., train, probability=TRUE, scale=FALSE, kernel=kernelFunc, 
-               degree=kernelDegree, gamma=kernelGamma, coef0=kernelCoef0, cost=svmCost)
+               degree=kernelDegree, gamma=kernelGamma, coef0=kernelCoef0, class.weights=classWeights)
   return (predict(model, test, probability=FALSE))
 }
 

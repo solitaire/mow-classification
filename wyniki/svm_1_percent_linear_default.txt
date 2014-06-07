@@ -1,0 +1,9 @@
+Done in 3803.788s.
+Error rate:  0.2686671 
+        classes
+            dos normal  probe    r2l    u2r
+  dos    223700    287    641   5225      0
+  normal  33728     87    580  26146     51
+  probe    1057      0   3052      2     55
+  r2l     11892      1   3637    595     64
+  u2r       171      1      2     23     31

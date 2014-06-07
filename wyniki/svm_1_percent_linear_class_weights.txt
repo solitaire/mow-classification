@@ -1,0 +1,12 @@
+Loading 1percent.data.processed... Done in 0.622s.
+48984 training samples, 9725 have 'normal' class
+311028 test samples, 60592 have 'normal' class
+SVM... Done in 664.739s.
+Error rate:  0.3702046 
+        classes
+            dos normal  probe    r2l    u2r
+  dos    133466  38638  57749      0      0
+  normal    756  58627   1124     39     46
+  probe     135    231   3745      0     55
+  r2l         7  12684   2851      7    640
+  u2r         0     54    134      1     39
