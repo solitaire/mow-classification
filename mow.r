@@ -43,6 +43,19 @@ selectedAttributes = c("count", "dst_bytes", "src_bytes", "logged_in", "service"
 					   "srv_count", "protocol_type", "dst_host_srv_diff_host_rate", "duration", "srv_diff_host_rate",
 					   "dst_host_diff_srv_rate", "same_srv_rate", "dst_host_serror_rate", "attack_type")
 
+# klasy w alfabetycznej kolejnosci
+alfaClasses = c("dos", "normal", "probe", "r2l", "u2r")
+
+# klasy w kolejnosci dla macierzy pomylek
+confClasses = c("normal", "dos", "probe", "u2r", "r2l")
+					   
+confusionMatrix = function(testClasses, classes) {
+	t = table(data$testClasses, classes)
+	conf = matrix(0, 5, 5, dimnames = list(alfaClasses, alfaClasses))
+	conf[1:nrow(t), 1:ncol(t)] = t
+	return (conf[confClasses, confClasses])
+}
+
 loadData = function(path) {
   return (read.csv(path, stringsAsFactors=FALSE))
 }
