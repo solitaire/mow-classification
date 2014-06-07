@@ -1,0 +1,12 @@
+Loading 100percent.data.processed... Done in 14.505s.
+4898430 training samples, 972780 have 'normal' class
+311028 test samples, 60592 have 'normal' class
+Bayes... Done in 1132.805s.
+Error rate:  0.1612331 
+       normal probe    dos  u2r r2l
+normal  35930   137  15601 8777 147
+probe     470  2268    666  762   0
+dos      3616    61 222564 3611   1
+u2r         8     0    154   60   6
+r2l       188     1  11018 4924  58
+
