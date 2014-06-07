@@ -47,7 +47,7 @@ selectedAttributes = c("count", "dst_bytes", "src_bytes", "logged_in", "service"
 alfaClasses = c("dos", "normal", "probe", "r2l", "u2r")
 
 # klasy w kolejnosci dla macierzy pomylek
-confClasses = c("normal", "dos", "probe", "u2r", "r2l")
+confClasses = c("normal", "probe", "dos", "u2r", "r2l")
 					   
 confusionMatrix = function(testClasses, classes) {
 	t = table(data$testClasses, classes)
