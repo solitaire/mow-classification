@@ -1,10 +1,11 @@
 #!/usr/bin/Rscript
 
 args = commandArgs(TRUE)
-if (length(args) == 0) {
-	stop("Usage: ./start 10percent.data.processed")
+if (length(args) < 2) {
+	stop("Usage: ./start 10percent.data.processed knn")
 }
 PROCESSED_FILE = args[1]
+ALGORITHM = args[2]
 
 source("mow.r")
 source("tictoc.r")
@@ -17,23 +18,30 @@ cat("Done in ",  toc(), "s.\n", sep = "")
 cat(nrow(data$train), "training samples,", sum(data$trainClasses == "normal"), "have 'normal' class\n")
 cat(nrow(data$test), "test samples,", sum(data$testClasses == "normal"), "have 'normal' class\n")
 
-tic()
-cat("KNN... ")
-classes = KNN(data$train, data$test, data$trainClasses)
-cat("Done in ", toc(), "s.\n", sep = "")
-cat("Error rate: ", error(classes, data$testClasses), "\n")
-print(confusionMatrix(data$testClasses, classes))
+if (ALGORITHM == "knn") {
+	tic()
+	K = 1
+	cat(paste(K, "NN... ", sep = ""))
+	classes = KNN(data$train, data$test, data$trainClasses, K)
+	cat("Done in ", toc(), "s.\n", sep = "")
+	cat("Error rate: ", error(classes, data$testClasses), "\n")
+	print(confusionMatrix(data$testClasses, classes))
+}
 
-tic()
-cat("Bayes... ")
-classes = Bayes(data$train, data$test, data$trainClasses)
-cat("Done in ", toc(), "s.\n", sep = "")
-cat("Error rate: ", error(classes, data$testClasses), "\n")
-print(confusionMatrix(data$testClasses, classes))
+if (ALGORITHM == "bayes") {
+	tic()
+	cat("Bayes... ")
+	classes = Bayes(data$train, data$test, data$trainClasses)
+	cat("Done in ", toc(), "s.\n", sep = "")
+	cat("Error rate: ", error(classes, data$testClasses), "\n")
+	print(confusionMatrix(data$testClasses, classes))
+}
 
-tic()
-cat("SVM... ")
-classes = SVM(data$train, data$test, data$trainClasses)
-cat("Done in ", toc(), "s.\n", sep = "")
-cat("Error rate: ", error(classes, data$testClasses), "\n")
-print(confusionMatrix(data$testClasses, classes))
+if (ALGORITHM == "svm") {
+	tic()
+	cat("SVM... ")
+	classes = SVM(data$train, data$test, data$trainClasses)
+	cat("Done in ", toc(), "s.\n", sep = "")
+	cat("Error rate: ", error(classes, data$testClasses), "\n")
+	print(confusionMatrix(data$testClasses, classes))
+}
