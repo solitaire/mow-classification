@@ -40,7 +40,9 @@ if (ALGORITHM == "bayes") {
 if (ALGORITHM == "svm") {
 	tic()
 	cat("SVM... ")
-	classes = SVM(data$train, data$test, data$trainClasses)
+	w = c(0.5, 5, 0.5, 10, 10)
+	names(w) = c("normal", "probe", "dos", "u2r", "r2l")
+	classes = SVM(data$train, data$test, data$trainClasses, kernelFunc = "radial", classWeights=w)
 	cat("Done in ", toc(), "s.\n", sep = "")
 	cat("Error rate: ", error(classes, data$testClasses), "\n")
 	print(confusionMatrix(data$testClasses, classes))

@@ -1,0 +1,11 @@
+Loading smote_data.processed... Done in 0.643s.
+30472 training samples, 5065 have 'normal' class
+311028 test samples, 60592 have 'normal' class
+SVM... Done in 1533.604s.
+Error rate:  0.1509543 
+       normal probe    dos   u2r r2l
+normal  31981  1599   2787 23239 986
+probe     100  3465    485   116   0
+dos       462    64 228573   744  10
+u2r       126    31     13    50   8
+r2l     10295   505    549  4832   8
