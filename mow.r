@@ -120,12 +120,6 @@ resampleData = function(classes, fullData, percOver, percUnder) {
   return (SMOTE(classes ~ ., fullData, perc.over = percOver, perc.under=percUnder, k=10))
 }
 
-normalizeData = function(data) {
-	for (i in ncol(data)) {
-		data[i,] = data[i,] - mean(data[i,])
-	}
-}
-
 # file - Plik z wejsciowym zbiorem przykladow.
 # part - Czesc danych, ktora ma zostac odczytana. Od 0 do 1 (100%).
 prepareData = function(trainFile, testFile, part = 1) {
@@ -146,8 +140,8 @@ prepareData = function(trainFile, testFile, part = 1) {
   
   lastAttrCol = ncol(trainData) - 1
   
-  normalizeData(trainData[,1:lastAttrCol])
-  normalizeData(testData[,1:lastAttrCol])
+  trainData[,1:lastAttrCol] = scale(trainData[,1:lastAttrCol])
+  testData[,1:lastAttrCol] = scale(testData[,1:lastAttrCol])
   
   return (list(
   	train = trainData[,1:lastAttrCol],
