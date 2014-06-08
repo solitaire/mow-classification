@@ -173,7 +173,7 @@ treningowym.
 \begin{tabular}{ | l | l | l | l | l | l | } \hline
 	normal & probe & dos & u2r & r2l & razem \\  \hline
 	972780 & 41102 & 3883370 & 52 & 1126 & 4898431 \\ \hline
-	19,86\% & 0,84\% & 79,28\% & 0,001\% & 0,023\% & \\ \hline
+	19.86\% & 0.84\% & 79.28\% & 0.001\% & 0.023\% & \\ \hline
 \end{tabular}
 \caption{Rozkład klas w pełnym zbiorze treningowym}
 \label{table:100percent}
@@ -187,7 +187,7 @@ podzbiorem pełnego zbioru treningowego.
 \begin{tabular}{ | l | l | l | l | l | l | } \hline
 	normal & probe & dos & u2r & r2l & razem \\ \hline
 	9725 & 414 & 38831 & 2 & 12 & 48984 \\ \hline
-	19,85\%  & 0,85\%  & 79,27\% & 0.004\%  & 0,024\% &  \\ \hline
+	19.85\%  & 0.85\%  & 79.27\% & 0.004\%  & 0.024\% &  \\ \hline
 \end{tabular}
 \caption{Rozkład klas w zbiorze treningowym będącym losowym, 1-procentowym
  podzbiorem pełnego zbioru treningowego}
@@ -200,7 +200,7 @@ W~tabeli \ref{table:test} został przedstawiony rozkład klas przykładów w zbi
 	\begin{tabular}{ | l | l | l | l | l | l | } \hline
 		normal & probe & dos & u2r & r2l & razem \\ \hline
 		60592 & 4166 & 229853 & 228 & 16189 & 311028 \\ \hline
-		19,48\% & 1,34\% & 73,90\% & 0,073\%  & 5,2\% & \\ \hline
+		19.48\% & 1.34\% & 73.9\% & 0.073\%  & 5.2\% & \\ \hline
 	\end{tabular}
 \caption{Rozkład klas w zbiorze testowym.}
 \label{table:test}
@@ -301,7 +301,33 @@ r2l 	& 15569 & 4 	& 3	& 0	& 613	& 3.8\%		\\ \hline
 \end{tabular} 
 \end{table}
 
+Otrzymany klasyfikator 3-NN rozpoznaje każdą klasę trochę gorzej niż klasyfikator zwycięzcy
+konkursu KDD'99.
+
 \subsection{Naiwny klasyfikator Bayesa}
+
+Naiwny klasyfikator Bayesa na pełnym zbiorze trenującym osiągnął błąd 16.1\% w około 19
+minut.
+Próbowano również wygładzania Laplace'a z parametrem 0.5, 1, 3 oraz 100, jednak
+nie miało to praktycznego wpływu na wyniki klasyfikacji. Macierz pomyłek dla wszystkich
+wariantów wyglądała następująco:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | l | } \hline
+	& normal & probe & dos 	& u2r 	& r2l 	& Poprawnych	\\ \hline
+normal 	& 35930 & 137 	& 15601	& 8777	& 147 	& 59.3\% 	\\ \hline
+probe 	& 470 	& 2268 	& 666	& 762	& 0 	& 54.4\% 	\\ \hline
+dos 	& 3616 	& 61 	& 222564& 3611 	& 1 	& 96.9\% 	\\ \hline
+u2r 	& 8 	& 0 	& 154	& 60	& 6	& 26.3\%	\\ \hline
+r2l 	& 188 	& 1 	& 11018	& 4924	& 58	& 0.4\%		\\ \hline
+\end{tabular} 
+\end{table}
+
+Naiwny klasyfikator Bayesa w porównaniu do rozwiązania zwycięskiego gorzej radzi sobie
+niemal ze wszystkimi klasami -- oprócz u2r. Dla klasy u2r naiwny Bayes rozpoznał poprawnie
+dwa razy więcej przykładów niż najlepsze rozwiązanie w konkursie KDD'99. 
+Ogólnie jednak naiwny Bayes jest znacznie gorszy.
 
 \subsection{SVM}
 
