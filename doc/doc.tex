@@ -93,7 +93,7 @@ jedną z 5 ostatecznych klas. \\
 
 \begin{tabular}{ | l | p{3cm} | p{3cm} | p{6cm} | } \hline
 Nr & Nazwa & Opis & Zbiór wartości \\ \hline
-1*      & duration & czas połączenia w sekundach & $\mathbb{Z}$ \\ \hline
+1*      & duration & czas połączenia w sekundach & $\mathbb Z_{\ge 0}$ \\ \hline
 2*      & protocol\_type & rodzaj protokołu & icmp, tcp, udp \\ \hline
 3*      & service & usługa na serwerze & smtp, bgp, imap4, courier, name, exec, ftp, echo, http\_2784,
                        http\_443, discard, kshell, login, http, Z39\_50, vmnet, supdup,
@@ -105,53 +105,53 @@ Nr & Nazwa & Opis & Zbiór wartości \\ \hline
                        mtp, sunrpc, uucp\_path, red\_i, harvest, nnsp, telnet, domain,
                        ntp\_u, netbios\_dgm, nntp, netbios\_ssn \\ \hline
 4      & flag & status połączenia & REJ, SF, SH, RSTO, OTH, RSTR, RSTOS0, S0, S1, S2, S3 \\ \hline
-5*      & src\_bytes  & bajty przesłane w połączeniu & $\mathbb{Z}$ \\ \hline
-6*      & dst\_bytes  & bajty pobrane w połączeniu  & $\mathbb{Z}$ \\ \hline
+5*      & src\_bytes  & bajty przesłane w połączeniu & $\mathbb Z_{\ge 0}$ \\ \hline
+6*      & dst\_bytes  & bajty pobrane w połączeniu  & $\mathbb Z_{\ge 0}$ \\ \hline
 7      & land & 1, jeśli źródło oraz cel połączenia ma tego samego hosta i port & 0, 1 \\ \hline
-8      & wrong\_fragment  & liczba pakietów oznaczonych jako ,,wrong'' & $\mathbb{Z}$ \\ \hline
-9      & urgent  & liczba pakietów oznaczonych jako ,,urgent''  & $\mathbb{Z}$ \\ \hline
+8      & wrong\_fragment  & liczba pakietów oznaczonych jako ,,wrong'' & $\mathbb Z_{\ge 0}$ \\ \hline
+9      & urgent  & liczba pakietów oznaczonych jako ,,urgent''  & $\mathbb Z_{\ge 0}$ \\ \hline
 \end{tabular}
 
-\begin{tabular}{ | l | l | p{6,5cm} | p{1,5cm} | } \hline
+\begin{tabular}{ | l | l | p{6cm} | p{2,1cm} | } \hline
 Nr & Nazwa & Opis & Zbiór wartości \\ \hline
-10      & hot & liczba wskaźników ,,hot'' dla akcji, np. uruchamianie programów & $\mathbb{Z}$ \\ \hline
-11      & num\_failed\_logins  & liczba nieudanych prób logowania w połączeniu & $\mathbb{Z}$ \\ \hline
+10      & hot & liczba wskaźników ,,hot'' dla akcji, np. uruchamianie programów & $\mathbb Z_{\ge 0}$ \\ \hline
+11      & num\_failed\_logins  & liczba nieudanych prób logowania w połączeniu & $\mathbb Z_{\ge 0}$ \\ \hline
 12*      & logged\_in  & 1, jeśli udało się zalogować &  0, 1 \\ \hline
-13      & num\_compromised & liczba wystąpień błędu ,,not found'' podczas połączenia &  $\mathbb{Z}$ \\ \hline
+13      & num\_compromised & liczba wystąpień błędu ,,not found'' podczas połączenia &  $\mathbb Z_{\ge 0}$ \\ \hline
 14      & root\_shell  & 1, jeśli uzyskano konsolę z uprawnieniami root  &  0, 1 \\ \hline
 15      & su\_attempted  & 1, jeśli użyto komendy \texttt{su} &  0, 1 \\ \hline
-16      & num\_root  & liczba operacji wykonanych jako root  & $\mathbb{Z}$ \\ \hline
-17      & num\_file\_creations  & liczba utworzonych plików  & $\mathbb{Z}$ \\ \hline
-18      & num\_shells  & liczba zalogowań jako normalny użytkownik & $\mathbb{Z}$ \\ \hline
-19      & num\_access\_files  & liczba operacji na plikach kontroli dostępu & $\mathbb{Z}$ \\ \hline
-20      & num\_outbound\_cmds & liczba poleceń wychodzących w sesji FTP & $\mathbb{Z}$ \\ \hline
+16      & num\_root  & liczba operacji wykonanych jako root  & $\mathbb Z_{\ge 0}$ \\ \hline
+17      & num\_file\_creations  & liczba utworzonych plików  & $\mathbb Z_{\ge 0}$ \\ \hline
+18      & num\_shells  & liczba zalogowań jako normalny użytkownik & $\mathbb Z_{\ge 0}$ \\ \hline
+19      & num\_access\_files  & liczba operacji na plikach kontroli dostępu & $\mathbb Z_{\ge 0}$ \\ \hline
+20      & num\_outbound\_cmds & liczba poleceń wychodzących w sesji FTP & $\mathbb Z_{\ge 0}$ \\ \hline
 21      & is\_hot\_login  & 1, jeśli login należy to listy ,,hot'', tzn. jeśli login to root albo adm &  0, 1 \\ \hline
 22      & is\_guest\_login  & 1, jeśli login należy to listy ,,guest'' &  0, 1 \\ \hline
-23*     & count & liczba połączeń do tego samego hosta w przęciągu 2 sekund & $\mathbb{Z}$ \\ \hline
-24*      & srv\_count   & liczba połączeń z tą samą usługą w przeciągu 2 sekund &  $\mathbb{Z}$ \\ \hline
-25      & serror\_rate        & \% połączeń o tym samym hoście z błędami SYN  & $\mathbb{R}$ \\ \hline
-26      & srv\_serror\_rate   & \% połączeń do tej samej usługi z błędami SYN & $\mathbb{R}$ \\ \hline
-27      & rerror\_rate        & \% połączeń o tym samym hoście z błędami REJ   & $\mathbb{R}$ \\ \hline
-28      & srv\_rerror\_rate   & \% połączeń do tej samej usługi z błędami REJ  & $\mathbb{R}$ \\ \hline
-29*      & same\_srv\_rate     & \% połączeń do tej samej usługi  &  $\mathbb{R}$ \\ \hline
-30      & diff\_srv\_rate     & \% połączeń do różnych usług &  $\mathbb{R}$ \\ \hline  
-31*      & srv\_diff\_host\_rate   & \% połączeń do różnych hostów   & $\mathbb{R}$ \\ \hline
+23*     & count & liczba połączeń do tego samego hosta w przęciągu 2 sekund & $\mathbb Z_{\ge 0}$ \\ \hline
+24*      & srv\_count   & liczba połączeń z tą samą usługą w przeciągu 2 sekund &  $\mathbb Z_{\ge 0}$ \\ \hline
+25      & serror\_rate        & \% połączeń o tym samym hoście z błędami SYN  & $\mathbb{R} \in [0; 1]$ \\ \hline
+26      & srv\_serror\_rate   & \% połączeń do tej samej usługi z błędami SYN & $\mathbb{R} \in [0; 1]$ \\ \hline
+27      & rerror\_rate        & \% połączeń o tym samym hoście z błędami REJ   & $\mathbb{R} \in [0; 1]$ \\ \hline
+28      & srv\_rerror\_rate   & \% połączeń do tej samej usługi z błędami REJ  & $\mathbb{R} \in [0; 1]$ \\ \hline
+29*      & same\_srv\_rate     & \% połączeń do tej samej usługi  &  $\mathbb{R} \in [0; 1]$ \\ \hline
+30      & diff\_srv\_rate     & \% połączeń do różnych usług &  $\mathbb{R} \in [0; 1]$ \\ \hline  
+31*      & srv\_diff\_host\_rate   & \% połączeń do różnych hostów   & $\mathbb{R} \in [0; 1]$ \\ \hline
 \end{tabular}
 
-\begin{tabular}{ | l | l | p{5,4cm} | p{1,5cm} | } \hline
+\begin{tabular}{ | l | l | p{5cm} | p{1,9cm} | } \hline
 Nr & Nazwa & Opis & Zbiór wartości \\ \hline
-32      & dst\_host\_count & liczba połączeń do tego samego adresu IP  &  $\mathbb{Z}$ \\ \hline
-33      & dst\_host\_srv\_count  & liczba połączeń do tego samego portu docelowego   & $\mathbb{Z}$ \\ \hline
-34      & dst\_host\_same\_srv\_rate  & \% połączeń do tej samej usługi w stosunku do liczby połączeń do tego samego adresu IP (atrybut 31) & $\mathbb{R}$ \\ \hline
-35*      & dst\_host\_diff\_srv\_rate  & \% połączeń do tej różnych usług w stosunku do liczby połączeń do tego samego adresu IP (atrybut 31) & $\mathbb{R}$ \\ \hline
-36*      & dst\_host\_same\_src\_port\_rate & \% połączeń do tego samego portu źródłowego w stosunku do liczby połączeń do tego samego portu docelowego (atrybut 32)  & $\mathbb{R}$ \\ \hline
-37*      & dst\_host\_srv\_diff\_host\_rate & \% połączeń do różnych portów źródłowych w stosunku do liczby połączeń do tego samego portu docelowego (atrybut 32)  &  $\mathbb{R}$ \\ \hline
+32      & dst\_host\_count & liczba połączeń do tego samego adresu IP  &  $\mathbb Z_{\ge 0}$ \\ \hline
+33      & dst\_host\_srv\_count  & liczba połączeń do tego samego portu docelowego   & $\mathbb Z_{\ge 0}$ \\ \hline
+34      & dst\_host\_same\_srv\_rate  & \% połączeń do tej samej usługi w stosunku do liczby połączeń do tego samego adresu IP (atrybut 31) & $\mathbb{R} \in [0; 1]$ \\ \hline
+35*      & dst\_host\_diff\_srv\_rate  & \% połączeń do tej różnych usług w stosunku do liczby połączeń do tego samego adresu IP (atrybut 31) & $\mathbb{R} \in [0; 1]$ \\ \hline
+36*      & dst\_host\_same\_src\_port\_rate & \% połączeń do tego samego portu źródłowego w stosunku do liczby połączeń do tego samego portu docelowego (atrybut 32)  & $\mathbb{R} \in [0; 1]$ \\ \hline
+37*      & dst\_host\_srv\_diff\_host\_rate & \% połączeń do różnych portów źródłowych w stosunku do liczby połączeń do tego samego portu docelowego (atrybut 32)  &  $\mathbb{R} \in [0; 1]$ \\ \hline
 
-38*      & dst\_host\_serror\_rate       & \% połączeń o tym samym hoście z błędami SYN w stosunku do atrybutu 31        &  $\mathbb{R}$ \\ \hline  
-39      & dst\_host\_srv\_serror\_rate  & \% połączeń o tym samym hoście z błędami SYN w stosunku do atrybutu 32 & $\mathbb{R}$ \\ \hline
+38*      & dst\_host\_serror\_rate       & \% połączeń o tym samym hoście z błędami SYN w stosunku do atrybutu 31        &  $\mathbb{R} \in [0; 1]$ \\ \hline  
+39      & dst\_host\_srv\_serror\_rate  & \% połączeń o tym samym hoście z błędami SYN w stosunku do atrybutu 32 & $\mathbb{R} \in [0; 1]$ \\ \hline
 
-40      & dst\_host\_rerror\_rate        & \% połączeń o tym samym hoście z błędami REJ w stosunku do atrybutu 31 & $\mathbb{R}$ \\ \hline
-41      & dst\_host\_srv\_rerror\_rate   & \% połączeń o tym samym hoście z błędami REJ w stosunku do atrybutu 32 & $\mathbb{R}$ \\ \hline
+40      & dst\_host\_rerror\_rate        & \% połączeń o tym samym hoście z błędami REJ w stosunku do atrybutu 31 & $\mathbb{R} \in [0; 1]$ \\ \hline
+41      & dst\_host\_srv\_rerror\_rate   & \% połączeń o tym samym hoście z błędami REJ w stosunku do atrybutu 32 & $\mathbb{R} \in [0; 1]$ \\ \hline
 \end{tabular}
 
 \begin{tabular}{ | l | l | p{4,5cm} | p{5,3cm} | } \hline
@@ -179,11 +179,11 @@ Dlatego przetestowano resampling przykładów treningowych, w~celu uzyskania ró
 Wykorzystany został algorytm \texttt{SMOTE} udostępniany przez pakiet 
 \texttt{DMwR} \footnote{\url{http://cran.r-project.org/web/packages/DMwR/}} języka~R.
 
-\section{Selekcja atrybytów}
+\section{Selekcja atrybutów}
 \label{sec:selekcja}
 
-Wykorzystana została funkcja \texttt{importance} z pakietu lasów losowych \texttt{randomForest}.
-\footnote{\url{http://cran.r-project.org/web/packages/randomForest/randomForest.pdf}}
+Wykorzystana została funkcja \texttt{importance} z pakietu lasów losowych
+\footnote{\url{http://cran.r-project.org/web/packages/randomForest/randomForest.pdf}}.
 Funkcja ta zwraca wartości dwóch miar ważności dla wszystkich atrybutów.
 Pierwszą miarą jest średni spadek precyzji, drugą jest średni spadek nieczystości węzłów.
 
