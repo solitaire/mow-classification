@@ -489,7 +489,7 @@ W przypadku jądra sigmoidalnego ani zmiana wartości parametru gamma, ani zmian
 \label{smote}
 
 Zbiór trenujący po zastosowaniu algorytmu SMOTE zawierał 317252 przykładów, 
-czyli ok. 6.5\% rozmiaru pełnego zbioru trenującego oraz ok 102\% rozmiaru
+czyli ok. 6.5\% rozmiaru pełnego zbioru trenującego oraz ok. 102\% rozmiaru
 zbioru testowego. Empiryczny rozkład klas wyglądał następująco:
 
 \begin{table}[H]
@@ -505,13 +505,37 @@ zbioru testowego. Empiryczny rozkład klas wyglądał następująco:
 
 Algorytm znacznie poprawił częstość występowania przykładów z klasy u2r -- z 0.001\% do 1.66\%.
 Na podstawie 52 przykładów u2r wygenerował 5200 dodatkowych.
+dPoniżej przedstawiono wyniki uzyskane przez dostrojony k-NN, naiwny klasyfikator Bayesa oraz SVM. 
 
-Poniżej przedstawiono wyniki uzyskane przez dostrojony k-NN, naiwny klasyfikator Bayesa oraz SVM. 
+\subsection{3-NN}
 
-\subsection{k-NN}
+Ogólny błąd klasyfikacji 3-NN po zastosowaniu algorytmu SMOTE wzrósł z 7.68\% do 7.85\%.
+Macierz pomyłek wyglądała następująco:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | l | } \hline
+	& normal & probe & dos 	& u2r 	& r2l 	& Poprawnych	\\ \hline
+normal &  59882 &   468 &  160  & 80  	&  2 	& 98.83\% \\ \hline
+probe  &  459 & 2904  &  702  &  101 	& 0 	& 69.70\% \\ \hline
+dos    &  6246  &  192 & 223160 &  255  & 0 	& 97.09\% \\ \hline
+u2r    &    174   &  1   &   0 &  0 	& 53 	& 23.24\% \\ \hline
+r2l    &  11591   &  1   &   317 &  3672 &  608 & 3.75\% \\ \hline
+\end{tabular} 
+\end{table}
+
+Liczba poprawnie sklasyfikowanych przykładów klasy u2r zwiększyła się z 10 do 53.
+Dla pozostałych klas jakość klasyfikacji spadła.
 
 \subsection{Naiwny klasyfikator Bayesa}
 
 \subsection{SVM}
+
+\subsection{Wniosek}
+
+Zastosowanie algorytmu SMOTE może przynieść dobre rezultaty, 
+jeśli zależy nam na lepszej klasyfikacji przykładów występujących najrzadziej,
+Może tak być w przypadku, gdy np. wartość kary za pomyłkę dla najrzadziej występującej klasy
+jest wysoka.
 
 \end{document}
