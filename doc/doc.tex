@@ -269,7 +269,7 @@ dst\_host\_same\_src\_port\_rate,
 dst\_host\_diff\_src\_port\_rate, 
 dst\_host\_serror\_rate 
 \\\\
-Na końcu rankingu zwróconego przez \texttt{importance} znalazły się atrybuty:
+Na końcu rankingów zwróconych przez \texttt{importance} znalazły się atrybuty:
 \\\\
 num\_failed\_logins, root\_shell, num\_outbound\_cmds, is\_host\_login, urgent   
 
@@ -388,11 +388,11 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \label{table:cm_svm_linear_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
- normal  &   87 &  580 & 33728 & 51 & 26146 & 0.14 \% \\ \hline
- probe   &    0 &  3052 &  1057 & 55  &   2 & 73.25 \% \\ \hline
- dos     &  287 &  641  & 223700 &  0 & 5225 & 97.32 \% \\ \hline
- u2r     &    1 &   2   &  171 & 31 &  23 & 3.67 \% \\ \hline
- r2l     &   1  & 3637  &  11892 & 64 & 595 & 13.59 \% \\ \hline
+ normal  &   87 &  580 & 33728 & 51 & 26146 & 0.14\% \\ \hline
+ probe   &    0 &  3052 &  1057 & 55  &   2 & 73.25\% \\ \hline
+ dos     &  287 &  641  & 223700 &  0 & 5225 & 97.32\% \\ \hline
+ u2r     &    1 &   2   &  171 & 31 &  23 & 3.67\% \\ \hline
+ r2l     &   1  & 3637  &  11892 & 64 & 595 & 13.59\% \\ \hline
 \end{tabular}
 \caption{Wyniki dla jądra liniowego i domyślnych parametrów SVM.}
 \end{table}
@@ -402,11 +402,11 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \label{table:cm_svm_radial_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
-  normal  & 60418  &  54   &  120   &  0 &  0 & 99.71 \% \\ \hline
-  probe   & 2291   &  1559 &   316  &  0 &  0 & 37.42 \% \\ \hline
-  dos     & 44561  &    3  & 185289 &  0 &  0 & 80.61 \% \\ \hline
-  u2r     &    99  & 129   &   0 &   0 &  0 & 0 \% \\ \hline
-  r2l     & 16185  &    2  &    2 &  0 &  0 & 0 \% \\ \hline
+  normal  & 60418  &  54   &  120   &  0 &  0 & 99.71\% \\ \hline
+  probe   & 2291   &  1559 &   316  &  0 &  0 & 37.42\% \\ \hline
+  dos     & 44561  &    3  & 185289 &  0 &  0 & 80.61\% \\ \hline
+  u2r     &    99  & 129   &   0 &   0 &  0 & 0\% \\ \hline
+  r2l     & 16185  &    2  &    2 &  0 &  0 & 0\% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra radialnego i domyślnych parametrów SVM.}
 \end{table}
@@ -416,11 +416,11 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \label{table:cm_svm_poly_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
-  normal & 56452 &  811 &  3299 & 26 &  4 & 93.16 \% \\ \hline
-  probe  &  1395 & 2740 &    31 &  0 &  0 & 65.77 \% \\ \hline
-  dos    & 83264 &  313 & 146276 &  0 &  0 & 63.63 \% \\ \hline
-  u2r    &   200 &   4  &  3  & 19  & 2 & 3.67 \% \\ \hline
-  r2l    & 15632 &    9 &  6  & 541 &  1 & 13.59 \% \\ \hline
+  normal & 56452 &  811 &  3299 & 26 &  4 & 93.16\% \\ \hline
+  probe  &  1395 & 2740 &    31 &  0 &  0 & 65.77\% \\ \hline
+  dos    & 83264 &  313 & 146276 &  0 &  0 & 63.63\% \\ \hline
+  u2r    &   200 &   4  &  3  & 19  & 2 & 3.67\% \\ \hline
+  r2l    & 15632 &    9 &  6  & 541 &  1 & 13.59\% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra wielomianowego i domyślnych parametrów SVM.}
 \end{table}
@@ -430,11 +430,11 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \label{table:cm_svm_sigmoid_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
-  normal   &   0  &   0 & 60592  &  0  &  0 & 0 \% \\ \hline
-  probe    &   0  &   0 &  4166  &  0  &  0 & 0 \% \\ \hline
-  dos      &   0  &   0 & 229853 &  0  &  0 & 100 \% \\ \hline
-  u2r      &   0  &   0 &   228  &  0  &  0 & 0 \% \\ \hline
-  r2l      &   0  &   0 & 16189  &  0  &  0 & 0 \% \\ \hline
+  normal   &   0  &   0 & 60592  &  0  &  0 & 0\% \\ \hline
+  probe    &   0  &   0 &  4166  &  0  &  0 & 0\% \\ \hline
+  dos      &   0  &   0 & 229853 &  0  &  0 & 100\% \\ \hline
+  u2r      &   0  &   0 &   228  &  0  &  0 & 0\% \\ \hline
+  r2l      &   0  &   0 & 16189  &  0  &  0 & 0\% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra sigmoidalnego i domyślnych parametrów SVM.}
 \end{table}
@@ -584,5 +584,18 @@ Zastosowanie algorytmu SMOTE może przynieść dobre rezultaty,
 jeśli zależy nam na lepszej klasyfikacji przykładów występujących najrzadziej.
 Może tak być w przypadku, gdy np. wartość kary za pomyłkę dla najrzadziej występującej klasy
 jest wysoka.
+
+\section{Podsumowanie}
+
+Najlepszą jakość klasyfikacji (92.32\%) osiągnął algorytm najprostszy spośród badanych -- 3-NN.
+Jedyną zmianą w stosunku do zupełnie podstawowej wersji jest bardziej zaawansowany algorytm
+znajdowania najbliższych sąsiadów danego punktu. Algorytm brute-force na tak olbrzymim zbiorze
+trenującym trwałby zdecydowanie zbyt długo -- dłużej niż całkowity czas trwania wszystkich 
+eksperymentów w tej pracy. Bardziej zaawansowany algorytm korzysta z dedykowanej struktury
+danych - drzew kd. Drzewa te dzielą obszar przeszukiwań na mniejsze podobszary zainteresowań, dzięki 
+czemu znaczna część całego obszaru może zostać pominięta, 
+co przyczynia się do ogromnego wzrostu wydajności. Można to zaobserwować w przedstawionych
+wynikach eksperymentów -- algorytmy
+k-NN na pełnym zbiorze trenujących wykonywały się najszyciej (ok. 11 minut).
 
 \end{document}
