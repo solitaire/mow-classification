@@ -412,7 +412,59 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \end{tabular} 
 \end{table}
 
-Na podstawie macierzy pomyłek przedstawionych w tabelach oraz błędów klasyfikacji wybrano dwa najbardziej obiecujące jądra: radialne i liniowe, dla których przeprowadzane były dalsze eksperymenty.
+Na podstawie macierzy pomyłek przedstawionych w tabelach oraz błędów klasyfikacji wybrano dwa najbardziej obiecujące jądra: radialne, liniowe i sigmoidalne, dla których przeprowadzane były dalsze eksperymenty.
+
+\subsubsection{Wpływ wag klas na działanie SVM}
+Podczas eksperymentów zbadany został wpływ wag klas na działanie poszczególnych jąder SVM. Analizie zostały poddane kolejno następujące wagi: 1/częstość klasy, 100/częstość klasy, oraz wagi dobrane eksperymentalnie: normal = 0.5, probe=5, dos = 0.5, u2r = 10, r2l = 10.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | r | r | r | } \hline
+Jądro & Błąd klasyfikacji & Czas w sekundach \\ \hline
+radialne & 77.36\% & 5635 \\ \hline
+liniowe & 37.02\% & 664 \\ \hline
+sigmoidalne & 26.09\% & 935 \\ \hline
+\end{tabular} 
+\caption{Wyniki dla wag klas 1/częstość klasy.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | r | r | r | } \hline
+Jądro & Błąd klasyfikacji & Czas w sekundach \\ \hline
+radialne & 40.39\% & 2554 \\ \hline
+liniowe & 10.71\% & 3348 \\ \hline
+sigmoidalne & 26.09\% & 935 \\ \hline
+\end{tabular} 
+\caption{Wyniki dla wag klas 100/częstość klasy.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | r | r | r | } \hline
+Jądro & Błąd klasyfikacji & Czas w sekundach \\ \hline
+radialne & 21.88\% & 2425 \\ \hline
+liniowe & 24.45\% & 2713 \\ \hline
+sigmoidalne & 26.09\% & 935 \\ \hline
+\end{tabular} 
+\caption{Wyniki dla dobranych eksperymentalnie wag klas.}
+\end{table}
+
+Dla jądra radialnego i liniowego najgorsze wyniki zaobserwowano dla wag klas równych 1/częstość klasy. Znaczącą poprawę zaobserwowano dla wag klas równych 100/częstość klasy i jądra liniowego. Poniżej przestawiono uzyskaną macierz pomyłek:
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | l | } \hline
+	& normal & probe & dos 	& u2r 	& r2l 	& Poprawnych	\\ \hline
+normal &  51787 &  919 & 7743  &  16 & 127  & 85.46\% \\ \hline
+probe  &  162 & 3606 &   344 &   54 &   0 & 86.55\% \\ \hline
+dos    &  6689 &  872 & 222292 &   0 &  0 & 96.71\% \\ \hline
+u2r    &    69 &  134 &  2 &  23 &  0 & 10.08\% \\ \hline
+r2l    &  12073 &  543 &   2935 & 638 &  0 & 0\% \\ \hline
+\end{tabular} 
+\end{table}
+We wszystkich eksperymentach jądro sigmoidalne osiągnęło taki sam wynik - nie uzyskano poprawy względem wersji algorytmu z domyślnymi ustawieniami.
+
+\subsubsection{Wpływ parametrów dla poszczególnych jąder na działanie SVM}
 
 \subsection{SMOTE}
 \label{smote}
