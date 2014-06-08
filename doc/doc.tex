@@ -92,7 +92,34 @@ Funkcja ta zwraca wartości dwóch miar ważności dla wszystkich atrybutów.
 Pierwszą miarą jest średni spadek precyzji, drugą jest średni spadek nieczystości węzłów.
 \end{enumerate}
 
-\subsection{Analiza danych wejściowych}
+\subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
+Poniżej przedstawiono parametry algorytmów, które będą analizowane.
+
+\subsubsection*{k-NN}
+\begin{itemize}
+	\item wartość parametru $k \in \{1, 3, 5, 7, 9\}$
+\end{itemize}
+
+\subsubsection*{Naiwny klasyfikator Bayesa}
+\begin{itemize}
+	\item wygładzanie Laplace'a
+\end{itemize}
+
+\subsubsection*{SVM}
+\begin{itemize}
+ \item rodzaj jądra oraz parametry charakterystyczne dla poszczególnych typów
+ \item wagi poszczególnych klas
+\end{itemize}
+
+\subsection{Ocena jakości modeli}
+Do porównywania jakości modeli wykorzystano błąd klasyfikacji na zbiorze testowym 
+\texttt{corrected}\footnote{\url{http://www-cse.ucsd.edu/users/elkan/corrected.gz}},
+przygotowanym przez autorów konkursu KDD'99.
+Zbiór ten zawiera 311028 przykładów. 
+Uczestnicy KDD'99 do oceny swoich rozwiązań używali tego samego zbioru testowego,
+co umożliwia porównanie wyników otrzymanych w tej pracy z wynikami z konkursu.
+
+\section{Analiza danych wejściowych}
 
 Podczas realizacji projektu został wykorzystany zbiór danych z konkursu 
 KDD'99 Classifier Learning Contest
@@ -173,8 +200,9 @@ Nr & Nazwa & Opis & Zbiór wartości \\ \hline
 Gwiazdką * oznaczono 14 atrybutów wybranych do klasyfikacji.
 % TODO tutaj o tym jak je wybralismy
 
-Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz
-zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze treningowym.
+Zbiór testowy posiadał inny rozkład prawdopodobieństwa typów ataków niż zbiór treningowy.
+% TODO konkretne tabelki ile
+
 Na podstawie 14 wybranych atrybutów, połączenia zostaną zaklasyfikowane do jednej z pięciu klas:
 
 \begin{enumerate}
@@ -195,31 +223,12 @@ Dlatego przetestowano resampling przykładów treningowych, w~celu uzyskania ró
 Wykorzystany został algorytm \texttt{SMOTE} udostępniany przez pakiet 
 \texttt{DMwR} \footnote{\url{http://cran.r-project.org/web/packages/DMwR/}} języka~R.
 
-\subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
-Poniżej przedstawiono parametry algorytmów, które będą analizowane.
+\section{Wyniki eksperymentów}
 
-\subsubsection*{k-NN}
-\begin{itemize}
-	\item wartość parametru $k \in \{1, 3, 5, 7, 9\}$
-\end{itemize}
+\subsection{k-NN}
 
-\subsubsection*{Naiwny klasyfikator Bayesa}
-\begin{itemize}
-	\item wygładzanie Laplace'a
-\end{itemize}
+\subsection{Naiwny klasyfikator Bayesa}
 
-\subsubsection*{SVM}
-\begin{itemize}
- \item rodzaj jądra oraz parametry charakterystyczne dla poszczególnych typów
- \item wagi poszczególnych klas
-\end{itemize}
-
-\subsection{Ocena jakości modeli}
-Do porównywania jakości modeli wykorzystano błąd klasyfikacji na zbiorze testowym 
-\texttt{corrected}\footnote{\url{http://www-cse.ucsd.edu/users/elkan/corrected.gz}},
-przygotowanym przez autorów konkursu KDD'99.
-Zbiór ten zawiera 311028 przykładów. 
-Uczestnicy KDD'99 do oceny swoich rozwiązań używali tego samego zbioru testowego,
-co umożliwia porównanie wyników otrzymanych w tej pracy z wynikami z konkursu.
+\subsection{SVM}
 
 \end{document}
