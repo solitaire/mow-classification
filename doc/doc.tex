@@ -259,19 +259,28 @@ Rozmiar przecięcia zbioru atrybutów wskazanych przez spadek precyzji ze zbiore
 atrybutów wskazanych przez indeks Giniego wynosi 29. Uznano, że 29 jest jeszcze zbyt dużą liczbą
 wymiarów, dlatego przygotowano rankingi 20 ,,najważniejszych'' atrybutów, nie 30.
 Rozmiar przecięcia takich zbiorów wyniósł 14 i te atrybuty zdecydowano się wykorzystać 
-w klasyfikacji: \\
-
-duration, protocol\_type, service, src\_bytes, dst\_bytes, logged\_in, count, srv\_count,
-same\_srv\_rate, 
-srv\_diff\_host\_rate, 
-dst\_host\_diff\_srv\_rate, 
-dst\_host\_same\_src\_port\_rate,
-dst\_host\_diff\_src\_port\_rate, 
-dst\_host\_serror\_rate 
-\\\\
+w klasyfikacji: 
+\begin{itemize}
+	\item duration, protocol\_type,
+	\item service, src\_bytes,
+	\item dst\_bytes,
+	\item logged\_in,
+	\item count, srv\_count,
+	\item same\_srv\_rate, 
+	\item srv\_diff\_host\_rate, 
+	\item dst\_host\_diff\_srv\_rate, 
+	\item dst\_host\_same\_src\_port\_rate,
+	\item dst\_host\_diff\_src\_port\_rate, 
+	\item dst\_host\_serror\_rate.
+\end{itemize}
 Na końcu rankingów zwróconych przez \texttt{importance} znalazły się atrybuty:
-\\\\
-num\_failed\_logins, root\_shell, num\_outbound\_cmds, is\_host\_login, urgent   
+\begin{itemize}
+	\item num\_failed\_logins,
+	\item root\_shell,
+	\item num\_outbound\_cmds,
+	\item is\_host\_login,
+	\item urgent.
+\end{itemize}   
 
 \section{Ocena jakości modeli}
 
