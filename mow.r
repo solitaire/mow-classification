@@ -73,7 +73,7 @@ loadData = function(path) {
 # flag {REJ,SF,SH,RSTO,OTH,RSTR,RSTOS0,S0,S1,S2,S3} (4)
 #
 # kolumna 42 - klasa ataku
-normalizeData = function(data) {
+discretizeData = function(data) {
   data[,2] = vapply(data[,2], function(x) protocolTypeMapping[[x]], 0)
   data[,3] = vapply(data[,3], function(x) serviceMapping[[x]], 0)
   data[,4] = vapply(data[,4], function(x) flagMapping[[x]], 0)
@@ -98,7 +98,7 @@ KNN = function(train, test, classes, K = 1, KNNAlgorithm = "kd_tree") {
 }
 
 Bayes = function(train, test, classes, naiveBayesLaplace = 0) {
-  model = naiveBayes(factor(classes) ~ ., train, laplace=naiveBayesLaplace)
+  model = naiveBayes(factor(classes) ~ ., train, laplace = naiveBayesLaplace)
   return (predict(model, test, type="class"))
 }
 
@@ -120,6 +120,12 @@ resampleData = function(classes, fullData, percOver, percUnder) {
   return (SMOTE(classes ~ ., fullData, perc.over = percOver, perc.under=percUnder, k=10))
 }
 
+normalizeData = function(data) {
+	for (i in ncol(data)) {
+		data[i,] = data[i,] - mean(data[i,])
+	}
+}
+
 # file - Plik z wejsciowym zbiorem przykladow.
 # part - Czesc danych, ktora ma zostac odczytana. Od 0 do 1 (100%).
 prepareData = function(trainFile, testFile, part = 1) {
@@ -132,19 +138,22 @@ prepareData = function(trainFile, testFile, part = 1) {
   sampledRows = floor(nrow(trainData) * part)
   trainData = trainData[sample(nrow(trainData), sampledRows), ]
   
-  trainData = normalizeData(trainData)
-  testData  = normalizeData(testData)
+  trainData = discretizeData(trainData)
+  testData  = discretizeData(testData)
   
   trainData = subset(trainData, select=selectedAttributes)
   testData = subset(testData, select=selectedAttributes)
   
-  lastCol = ncol(trainData) - 1
+  lastAttrCol = ncol(trainData) - 1
+  
+  normalizeData(trainData[,1:lastAttrCol])
+  normalizeData(testData[,1:lastAttrCol])
   
   return (list(
-  	train = trainData[,1:lastCol],
-  	trainClasses = trainData[,lastCol+1],
-  	test = testData[,1:lastCol],
-  	testClasses = testData[,lastCol+1]))
+  	train = trainData[,1:lastAttrCol],
+  	trainClasses = trainData[,lastAttrCol+1],
+  	test = testData[,1:lastAttrCol],
+  	testClasses = testData[,lastAttrCol+1]))
 }
 
 error = function(classes, testClasses) {
