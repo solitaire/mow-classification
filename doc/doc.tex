@@ -242,10 +242,36 @@ Wyniki przedstawiono w rozdziale \ref{smote}.
 
 Wykorzystana została funkcja \texttt{importance} z pakietu lasów losowych
 \footnote{\url{http://cran.r-project.org/web/packages/randomForest/randomForest.pdf}}.
-Funkcja ta zwraca wartości dwóch miar ważności dla wszystkich atrybutów.
-Pierwszą miarą jest średni spadek precyzji, drugą jest średni spadek nieczystości węzłów.
+Wynik jej wywołania dla pełnego zbioru trenującego przedstawiono na rysunku \ref{fig:attr}.
 
-%TODO wykres i dane numeryczne
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\textwidth]{attr}
+\caption{Wynik wywołania \texttt{importance} przedstawia 30 ,,najważniejszych'' atrybutów
+dla dwóch miar. 
+Po lewej stronie miara średniego spadku precyzji.
+Po prawej stronie miara średniego spadku indeksu Giniego. 
+Im atrybut wyżej się znajduje, tym ,,ważniejszy''.}
+\label{fig:attr}
+\end{figure}
+
+Rozmiar przecięcia zbioru atrybutów wskazanych przez spadek precyzji ze zbiorem
+atrybutów wskazanych przez indeks Giniego wynosi 29. Uznano, że 29 jest jeszcze zbyt dużą liczbą
+wymiarów, dlatego przygotowano rankingi 20 ,,najważniejszych'' atrybutów, nie 30.
+Rozmiar przecięcia takich zbiorów wyniósł 14 i te atrybuty zdecydowano się wykorzystać 
+w klasyfikacji: \\
+
+duration, protocol\_type, service, src\_bytes, dst\_bytes, logged\_in, count, srv\_count,
+same\_srv\_rate, 
+srv\_diff\_host\_rate, 
+dst\_host\_diff\_srv\_rate, 
+dst\_host\_same\_src\_port\_rate,
+dst\_host\_diff\_src\_port\_rate, 
+dst\_host\_serror\_rate 
+\\\\
+Na końcu rankingu zwróconego przez \texttt{importance} znalazły się atrybuty:
+\\\\
+num\_failed\_logins, root\_shell, num\_outbound\_cmds, is\_host\_login, urgent   
 
 \section{Ocena jakości modeli}
 
@@ -256,7 +282,7 @@ Zbiór ten zawiera 311028 przykładów.
 Uczestnicy KDD'99 do oceny swoich rozwiązań używali tego samego zbioru testowego,
 co umożliwia porównanie wyników otrzymanych w tej pracy z wynikami z konkursu.
 
-\section{Wyniki eksperymentów}
+\section{Wyniki eksperymentów oraz wnioski}
 \label{sec:wyniki}
 
 W tym rozdziale przedstawiono wyniki eksperymentów dla trzech wybranych algorytmów:
@@ -555,7 +581,7 @@ klasyfikacji dla klas normal oraz probe pozostawia wiele do życzenia.
 \subsubsection{Wniosek}
 
 Zastosowanie algorytmu SMOTE może przynieść dobre rezultaty, 
-jeśli zależy nam na lepszej klasyfikacji przykładów występujących najrzadziej,
+jeśli zależy nam na lepszej klasyfikacji przykładów występujących najrzadziej.
 Może tak być w przypadku, gdy np. wartość kary za pomyłkę dla najrzadziej występującej klasy
 jest wysoka.
 
