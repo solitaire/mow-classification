@@ -262,11 +262,14 @@ wymiarów, dlatego przygotowano rankingi 20 ,,najważniejszych'' atrybutów, nie
 Rozmiar przecięcia takich zbiorów wyniósł 14 i te atrybuty zdecydowano się wykorzystać 
 w klasyfikacji: 
 \begin{itemize}
-	\item duration, protocol\_type,
-	\item service, src\_bytes,
+	\item duration, 
+	\item protocol\_type,
+	\item service, 
+	\item src\_bytes,
 	\item dst\_bytes,
 	\item logged\_in,
-	\item count, srv\_count,
+	\item count, 
+	\item srv\_count,
 	\item same\_srv\_rate, 
 	\item srv\_diff\_host\_rate, 
 	\item dst\_host\_diff\_srv\_rate, 
@@ -274,6 +277,7 @@ w klasyfikacji:
 	\item dst\_host\_diff\_src\_port\_rate, 
 	\item dst\_host\_serror\_rate.
 \end{itemize}
+W pracach [] oraz [] również zauważono istotność tych atrybutów.
 Na końcu rankingów zwróconych przez \texttt{importance} znalazły się atrybuty:
 \begin{itemize}
 	\item num\_failed\_logins,
