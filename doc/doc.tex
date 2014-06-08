@@ -507,7 +507,7 @@ Algorytm znacznie poprawił częstość występowania przykładów z klasy u2r -
 Na podstawie 52 przykładów u2r wygenerował 5200 dodatkowych.
 dPoniżej przedstawiono wyniki uzyskane przez dostrojony k-NN, naiwny klasyfikator Bayesa oraz SVM. 
 
-\subsection{3-NN}
+\subsubsection{3-NN}
 
 Ogólny błąd klasyfikacji 3-NN po zastosowaniu algorytmu SMOTE wzrósł z 7.68\% do 7.85\%.
 Macierz pomyłek wyglądała następująco:
@@ -527,11 +527,32 @@ r2l    &  11591   &  1   &   317 &  3672 &  608 & 3.75\% \\ \hline
 Liczba poprawnie sklasyfikowanych przykładów klasy u2r zwiększyła się z 10 do 53.
 Dla pozostałych klas jakość klasyfikacji spadła.
 
-\subsection{Naiwny klasyfikator Bayesa}
+\subsubsection{Naiwny klasyfikator Bayesa}
 
-\subsection{SVM}
+Ogólny błąd klasyfikacji naiwnego klasyfikator Bayesa po zastosowaniu algorytmu SMOTE 
+spadł z 16.1\% do 15.75\%. Macierz pomyłek wyglądała następująco:
 
-\subsection{Wniosek}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | l | } \hline
+	& normal & probe & dos 	& u2r 	& r2l 	& Poprawnych	\\ \hline
+normal &  35963 &   225 &  14983  & 7977  &  2 	& 59.35\% \\ \hline
+probe  &  296 & 2959  &  640  &  248 	& 23 	& 71.03\% \\ \hline
+dos    &  4059  &  353 & 222222 &  645  & 2574 	& 96.68\% \\ \hline
+u2r    &    6   &  2   &   26 &  174 	& 20 	& 76.31\% \\ \hline
+r2l    &  137   &  13   &   10412 &  4912 &  715 & 4.41\% \\ \hline
+\end{tabular} 
+\end{table}
+
+Liczba poprawnie sklasyfikowanych przykładów klasy u2r zwiększyła się z 60 do 174.
+Jest to najlepszy wynik dla klasy u2r w tej pracy -- rozpoznanie 76.31\% przykładów
+na podstawie jedynie 52 przykładów trenujących (zwiększonych sztucznie przez SMOTE do 5252).
+Poprawiła się również jakość klasyfikacji dla klas probe oraz r2l. Z drugiej strony, jakość
+klasyfikacji dla klas normal oraz probe pozostawia wiele do życzenia.
+
+\subsubsection{SVM}
+
+\subsubsection{Wniosek}
 
 Zastosowanie algorytmu SMOTE może przynieść dobre rezultaty, 
 jeśli zależy nam na lepszej klasyfikacji przykładów występujących najrzadziej,
