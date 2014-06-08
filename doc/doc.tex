@@ -492,7 +492,8 @@ r2l    &  12073 &  543 &   2935 & 638 &  0 & 0\% \\ \hline
 We wszystkich eksperymentach jądro sigmoidalne osiągnęło taki sam wynik - nie uzyskano poprawy względem wersji algorytmu z domyślnymi ustawieniami.
 
 \subsubsection{Wpływ parametrów dla poszczególnych jąder na działanie SVM}
-Dla jądra radialnego i sigmoidalnego zbadano wpływ wartości parametrów charakterystycznych dla typu jądra na zachowanie klasyfikatora. Dla jądra radialnego testowano parametr gamma, natomiast w przypadku jądra sigmoidalnego były to parametry gamma i coef0. 
+Ze względu na fakt, iż jądro liniowe nie posiada parametrów, w tej części eksperymentów skupiono się na dwóch pozostałych typach, posiadających parametry - radialnym i sigmoidalnym.
+Dla jądra radialnego testowano parametr gamma, natomiast w przypadku jądra sigmoidalnego były to parametry gamma i coef0. 
 Parametry gamma dla obu jąder testowane były z wykorzystaniem funkcji tune. Podczas testów przyjęto następujący zakres $[2^{(-8)};2]$. W przypadku parametru coef0 testowano następujące wartości: 1, 5, 10.
 
 Dla jądra radialnego otrzymano najlepszy rezultat charakteryzujący się błędem 18.18\% przy wartości gamma = 0.0625. Poniżej przedstawiono uzyskaną macierz pomyłek.
@@ -525,13 +526,25 @@ zbioru testowego. Empiryczny rozkład klas wyglądał następująco:
 		61657 & 2686 & 247583 & 5252 & 74 & 317252 \\ \hline
 		19.43\% & 0.85 \% & 78.04\% & 1.66\%  & 0.02\% & \\ \hline
 	\end{tabular}
-\caption{Rozkład klas w zbiorze testowym.}
+\caption{Rozkład klas w zbiorze trenującym SMOTE.}
+\label{table:test}
+\end{table}
+
+Na potrzeby klasyfikatora SVM wygenerowany został mniej liczny zbiór SMOTE liczący 36452 przykładów. Empiryczny rozkład klas wyglądał następująco:
+\begin{table}[H]
+\centering
+	\begin{tabular}{ | l | l | l | l | l | l | } \hline
+		normal & probe & dos & u2r & r2l & razem \\ \hline
+		6171 & 256 & 24768 & 5252 & 5 & 36452 \\ \hline
+		16.93\% & 0.70 \% & 67.94 \% & 14.40\%  & 0.013\% & \\ \hline
+	\end{tabular}
+\caption{Rozkład klas w ograniczonym zbiorze trenującym SMOTE.}
 \label{table:test}
 \end{table}
 
 Algorytm znacznie poprawił częstość występowania przykładów z klasy u2r -- z 0.001\% do 1.66\%.
 Na podstawie 52 przykładów u2r wygenerował 5200 dodatkowych.
-dPoniżej przedstawiono wyniki uzyskane przez dostrojony k-NN, naiwny klasyfikator Bayesa oraz SVM. 
+Poniżej przedstawiono wyniki uzyskane przez dostrojony k-NN, naiwny klasyfikator Bayesa oraz SVM. 
 
 \subsubsection{3-NN}
 
@@ -577,6 +590,37 @@ Poprawiła się również jakość klasyfikacji dla klas probe oraz r2l. Z drugi
 klasyfikacji dla klas normal oraz probe pozostawia wiele do życzenia.
 
 \subsubsection{SVM}
+Testy na zbiorze SMOTE przeprowadzono dla klasyfikatora z jądrem liniowym oraz radialnym. Podczas testów wykorzystane zostały modele, dla których uzyskano najlepsze rezultaty we wcześniejszych eksperymentach.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | l | } \hline
+	& normal & probe & dos 	& u2r 	& r2l 	& Poprawnych	\\ \hline
+normal &  40529 &  683  & 1666 &  14368 & 3346 & 66.88\% \\ \hline
+probe  &    319 &  3686 &     24  &   137 &    0 & 88.47\% \\ \hline
+dos    &  33232 &   113 & 195735  &  752  &  21 & 85.15\% \\ \hline
+u2r    &     33 &  133  &     4   &  57   &  1 & 25\% \\ \hline
+r2l    &   2755 &   544 &    543 &  12338 &  9 & 0.055\% \\ \hline
+\end{tabular} 
+\caption{Macierz pomyłek dla jądra liniowego.}
+\end{table}
+
+Ogólny błąd klasyfikacji dla najlepszego jądra liniowego uległ znacznemu pogorszeniu. W wzrósł ponad dwukrotnie z 10.71\% do 22\%. Skuteczność predykcji klasy u2r znacząco wzrosła, do 25\%. Z drugiej strony, nastąpiło pogorszenie skuteczności predykcji dla pozostałych klas. Ponadto, w stosunku do modelu zbudowanego na podstawie standardowego zbioru treningowego, model był w stanie poprawnie zaklasyfikować 9 przykładów klasy r2l.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | l | } \hline
+	& normal & probe & dos 	& u2r 	& r2l 	& Poprawnych	\\ \hline
+normal & 15821 &   64  &   70 & 44637 &  0 & 26.11\% \\ \hline
+probe  &    3 &  1719  &  223 &  2221 &  0  & 41.26\% \\ \hline
+dos    &    16  & 424 & 180519 & 48894 & 0  & 78.54\% \\ \hline
+u2r    &     1  & 133   &   0  &  94 &  0 & 0\% \\ \hline
+r2l    &  7742  &   2  &   0 & 8445 &  0 & 0\% \\ \hline
+\end{tabular} 
+\caption{Macierz pomyłek dla jądra radialnego.}
+\end{table}
+
+Podobnie jak w przypadku jądra liniowego, zastosowanie zbioru SMOTE znacząco pogorszyło wyniki. Ogólny błąd klasyfikacji wzrósł do 36\%. Dla wszystkich klas uzyskano niezadowalające wyniki. Podobnie jak w przypadku standardowego zbioru treningowego, klasyfikator z jądrem radialnym nie był w stanie poprawnie zaklasyfikować ani jednego przykładu należącego do klas u2r lub r2l.
 
 \subsubsection{Wniosek}
 
