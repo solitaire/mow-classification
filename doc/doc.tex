@@ -87,8 +87,8 @@ KDD'99 Classifier Learning Contest
 \footnote{\url{www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection}}.
 Każdy przykład zawiera 41 atrybutów połączenia sieciowego. W poniższej tabeli przedstawiono
 szczegóły wszystkich atrybutów.
-42 kolumna danych treningowych zawiera typ ataku, który bezpośrednio mapuję się na
-jedną z 5 ostatecznych klas. \\
+42 kolumna danych treningowych zawiera typ ataku, który bezpośrednio mapuje się na
+jedną z pięciu ostatecznych klas. \\
 
 \begin{tabular}{ | l | p{3cm} | p{3cm} | p{6cm} | } \hline
 Nr & Nazwa & Opis & Zbiór wartości \\ \hline
@@ -217,13 +217,24 @@ jest najtrudniej rozpoznawalna, co potwierdzają wyniki przedstawione w rozdzial
 
 Na początku dane zostały przejrzane w poszukiwaniu pojedynczych wartości odstających
 powstałych np. na skutek błędu ludzkiego. Dokonano tego przy pomocy funkcji \texttt{summary}
-języka R. Nie znaleziono wartości odstających. 
-Następnie atrybuty wyliczeniowe zostały zamienione na liczbowe.
+języka R. Nie znaleziono wartości odstających.
+
+Po wczytaniu danych z pliku tekstowego przeprowadzane zostały następujące kroki:
+\begin{enumerate}
+ \item Dla SVM, zbiór wejściowy jest zmniejszany do 1\%.
+ \item Atrybuty wyliczeniowe są zamieniane na liczbowe.
+ \item Wybieranych jest 14 atrybutów.
+ \item Wartości w kolumnach są normalizowane, by miały średnią równą 0 i~standardowe odchylenie równe 1.
+\end{enumerate}
+Tak przetworzony zbiór trenujący i testowy został zapisany do skompresowanego pliku \texttt{.processed}.
+Plik ten może być szybko wczytywany przez testowane algorytmy, bez potrzeby
+transformowania danych za każdym razem.
 
 Wykorzystywane w~projekcie dane charakteryzują się nierównomiernym rozkładem klas. 
 Dlatego przetestowano resampling przykładów treningowych, w~celu uzyskania równomiernego rozkładu klas. 
 Wykorzystany został algorytm \texttt{SMOTE} udostępniany przez pakiet 
 \texttt{DMwR} \footnote{\url{http://cran.r-project.org/web/packages/DMwR/}} języka~R.
+Wyniki przedstawiono w rozdziale \ref{smote}.
 
 \section{Selekcja atrybutów}
 \label{sec:selekcja}
@@ -404,5 +415,6 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 Na podstawie macierzy pomyłek przedstawionych w tabelach oraz błędów klasyfikacji wybrano dwa najbardziej obiecujące jądra: radialne i liniowe, dla których przeprowadzane były dalsze eksperymenty.
 
 \subsection{SMOTE}
+\label{smote}
 
 \end{document}
