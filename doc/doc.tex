@@ -94,12 +94,13 @@ Pierwszą miarą jest średni spadek precyzji, drugą jest średni spadek nieczy
 
 \subsection{Analiza danych wejściowych}
 
-Zbiorem danych, który zostanie wykorzystany podczas realizacji projektu jest zbiór danych dostępny 
-pod adresem: \\
-\url{www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection}.
-
-Wykorzystywany zbiór danych składa się ze zbiorów: treningowego i testowego.
-Każdy przykład ma 42 atrybuty: \\
+Podczas realizacji projektu został wykorzystany zbiór danych z konkursu 
+KDD'99 Classifier Learning Contest
+\footnote{\url{www.sigkdd.org/kdd-cup-1999-computer-network-intrusion-detection}}.
+Każdy przykład zawiera 41 atrybutów połączenia sieciowego. W poniższej tabeli przedstawiono
+szczegóły wszystkich atrybutów.
+42 kolumna danych treningowych zawiera typ ataku, który bezpośrednio mapuję się na
+jedną z 5 ostatecznych klas. \\
 
 \begin{tabular}{ | l | p{3cm} | p{3cm} | p{6cm} | } \hline
 Nr & Nazwa & Opis & Zbiór wartości \\ \hline
@@ -174,7 +175,7 @@ Gwiazdką * oznaczono 14 atrybutów wybranych do klasyfikacji.
 
 Zbiór testowy charakteryzuje się różnym rozkładem prawdopodobieństwa niż zbiór treningowy oraz
 zawiera więcej typów ataków sieciowych, które nie znajdują się w zbiorze treningowym.
-Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu klas:
+Na podstawie 14 wybranych atrybutów, połączenia zostaną zaklasyfikowane do jednej z pięciu klas:
 
 \begin{enumerate}
  \item \texttt{normal} -- połączenia prawidłowe
@@ -184,19 +185,22 @@ Na podstawie cech, połączenia zostaną zaklasyfikowane do jednej z pięciu kla
  \item \texttt{R2L} -- nieautoryzowany dostęp ze zdalnej maszyny, np. zgadywanie hasła
 \end{enumerate}
 
-Na początku dane zostaną przejrzane w poszukiwaniu pojedynczych wartości odstających
-powstałych np. na skutek błędu ludzkiego. Następnie zostanie wybranych kilka najlepiej rokujących
-cech. Przetestowane zostanie też działanie algorytmów biorące wszystkie cechy pod uwagę.
-Dane zostaną znormalizowane -- dokonamy konwersji atrybutów nieliczbowych na liczbowe,
-a~następnie przeskalujemy wszystkie wartości, tak aby miały taki sam rząd wielkości.
+Na początku dane zostały przejrzane w poszukiwaniu pojedynczych wartości odstających
+powstałych np. na skutek błędu ludzkiego. Dokonano tego przy pomocy funkcji \texttt{summary}
+języka R. Nie znaleziono wartości odstających. 
+Następnie atrybuty wyliczeniowe zostały zamienione na liczbowe.
+
+Wykorzystywane w~projekcie dane charakteryzują się nierównomiernym rozkładem klas. 
+Dlatego przetestowano resampling przykładów treningowych, w~celu uzyskania równomiernego rozkładu klas. 
+Wykorzystany został algorytm \texttt{SMOTE} udostępniany przez pakiet 
+\texttt{DMwR} \footnote{\url{http://cran.r-project.org/web/packages/DMwR/}} języka~R.
 
 \subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
 Poniżej przedstawiono parametry algorytmów, które będą analizowane.
 
 \subsubsection*{k-NN}
 \begin{itemize}
-	\item wartość parametru $k$
-	\item algorytm wyszukiwania najbliższego sąsiada
+	\item wartość parametru $k \in \{1, 3, 5, 7, 9\}$
 \end{itemize}
 
 \subsubsection*{Naiwny klasyfikator Bayesa}
@@ -210,30 +214,12 @@ Poniżej przedstawiono parametry algorytmów, które będą analizowane.
  \item wagi poszczególnych klas
 \end{itemize}
 
-\subsection{Sposób oceny jakości modelu}
-Jakość modelu zostanie poddana ocenie zgodnie z procedurą konkursową,
-poprzez obliczenie kosztu pomyłek przy pomocy podanej macierzy kar:
-
-\begin{table}[H]
-\centering
-\begin{tabular}{ l l l l l l }
-       & \texttt{normal}&\texttt{probe}	&\texttt{DOS}	&\texttt{U2R}	&\texttt{R2L} \\
-\texttt{normal}	&0	&1	&2	&2	&2 \\
-\texttt{probe}	&1	&0	&2	&2	&2 \\
-\texttt{DOS}	&2	&1	&0	&2	&2 \\
-\texttt{U2R}	&3	&2	&2	&0	&2 \\
-\texttt{R2L}	&4	&2	&2	&2	&0 \\
-\end{tabular}
-\caption{Macierz kar}
-\label{table:cov_matrix}
-\end{table}
-
-Wykorzystywane w~projekcie dane charakteryzują się nierównomiernym rozkładem klas. W~zależności od otrzymywanych błędów klasyfikacji, konieczne może okazać się dokonanie pewnych modyfikacji w~procedurze przygotowania danych treningowych oraz w~samej postaci macierzy kar. 
-\begin{itemize}
-	\item strojenie parametrów przedstawionej macierzy kar, polegające na zwiększaniu wag dla klas znajdujących się w~zdecydowanej mniejszości w~stosunku do pozostałych klas, a~zmniejszanie ich dla klas, których rozkład jest równomierny.
-	\item resampling przykładów treningowych w~celu uzyskania równomiernego rozkładu klas. Do tego celu wykorzystany algorytm \texttt{SMOTE} udostępniany przez pakiet \texttt{DMwR} \footnote{\url{http://cran.r-project.org/web/packages/DMwR/}} języka~R.
-\end{itemize}
-
-% Ponadto zostanie wykorzystana graficzna reprezentacja zależności wyników typu \textit{true-positive} i \textit{false-positive} w postaci krzywej ROC.
+\subsection{Ocena jakości modeli}
+Do porównywania jakości modeli wykorzystano błąd klasyfikacji na zbiorze testowym 
+\texttt{corrected}\footnote{\url{http://www-cse.ucsd.edu/users/elkan/corrected.gz}},
+przygotowanym przez autorów konkursu KDD'99.
+Zbiór ten zawiera 311028 przykładów. 
+Uczestnicy KDD'99 do oceny swoich rozwiązań używali tego samego zbioru testowego,
+co umożliwia porównanie wyników otrzymanych w tej pracy z wynikami z konkursu.
 
 \end{document}
