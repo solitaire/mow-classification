@@ -23,13 +23,12 @@ Projekt ma na celu analizę działania różnych algorytmów klasyfikacji zastos
 w procesie wykrywania ataków sieciowych. Połączenia sieciowe można zaklasyfikować do jednej
 z pięciu klas:
 \begin{itemize}
-  \item prawidłowe (klasa \texttt{normal}),
-  \item odpytywanie, np. skanowanie portów (klasa \texttt{probe}),
-  \item ataki typu Denial of Service (klasa \texttt{dos}),
-  \item ataki typu User to Root, polegające na przejęciu praw administratora, 
-np. ataki przepełnienia bufora (klasa \texttt{u2r}),
-  \item ataki typu Remote to Local, polegające na nieautoryzowanym dostępie ze zdalnego komputera 
-(klasa \texttt{r2l}).
+  \item normal -- połączenia prawidłowe,
+  \item probe -- odpytywanie, np. skanowanie portów,
+  \item dos -- ataki typu Denial of Service,
+  \item u2r -- ataki typu User to Root, polegające na przejęciu praw administratora, 
+np. ataki przepełnienia bufora,
+  \item r2l -- ataki typu Remote to Local, polegające na nieautoryzowanym dostępie ze zdalnego komputera.
 \end{itemize} 
 
 \section{Opis wykorzystanych algorytmów}\label{algorithms}
@@ -164,13 +163,12 @@ Sposób w jaki je wybrano opisano w rozdziale \ref{sec:selekcja}.
 
 \section{Statystyczny opis danych}
 
-Zbiór testowy posiadał inny empiryczny rozkład prawdopodobieństwa klas niż zbiór treningowy.
 Podczas testów wykorzystane zostały dwa zbiory treningowe -- pełny zbiór treningowy 
 liczący 4898431 przykładów oraz jego losowy, 1-procentowy podzbiór.
 W~tabeli \ref{table:100percent} został przedstawiony rozkład klas przykładów w~pełnym zbiorze
 treningowym. 
 
-\begin{table}[htb]
+\begin{table}[H]
 \centering
 \begin{tabular}{ | l | l | l | l | l | l | } \hline
 	normal & probe & dos & u2r & r2l & razem \\  \hline
@@ -184,7 +182,7 @@ treningowym.
 W~tabeli \ref{table:1percent} został przedstawiony rozkład klas przykładów w 
 zbiorze treningowym będącym losowym, 1-procentowym
 podzbiorem pełnego zbioru treningowego.
-\begin{table}[htb]
+\begin{table}[H]
 \centering
 \begin{tabular}{ | l | l | l | l | l | l | } \hline
 	normal & probe & dos & u2r & r2l & razem \\ \hline
@@ -197,7 +195,7 @@ podzbiorem pełnego zbioru treningowego.
 \end{table}
 
 W~tabeli \ref{table:test} został przedstawiony rozkład klas przykładów w zbiorze testowym.
-\begin{table}[htb]
+\begin{table}[H]
 \centering
 	\begin{tabular}{ | l | l | l | l | l | l | } \hline
 		normal & probe & dos & u2r & r2l & razem \\ \hline
@@ -207,6 +205,13 @@ W~tabeli \ref{table:test} został przedstawiony rozkład klas przykładów w zbi
 \caption{Rozkład klas w zbiorze testowym.}
 \label{table:test}
 \end{table}
+
+Konkursowy zbiór testowy posiadał zupełnie inny empiryczny rozkład prawdopodobieństwa klas niż zbiór treningowy.
+Największa różnica liczby przykładów wystąpiła dla klasy r2l. Zbiór trenujący posiada zaledwie
+1126 przykładów tej klasy (0,023\% całości), natomiast zbiór testujący aż 16189 (5,2\% całego
+zbioru testującego). Zbiór testujący posiada około 14 razy więcej przykładów r2l niż zbiór
+trenujący, pomimo tego, że jest około 16 razy mniejszy od niego. Powoduje to, że klasa r2l
+jest najtrudniej rozpoznawalna, co potwierdzają wyniki przedstawione w rozdziale \ref{sec:wyniki}.
 
 \section{Transformacja danych}
 
@@ -240,13 +245,37 @@ Uczestnicy KDD'99 do oceny swoich rozwiązań używali tego samego zbioru testow
 co umożliwia porównanie wyników otrzymanych w tej pracy z wynikami z konkursu.
 
 \section{Wyniki eksperymentów}
+\label{sec:wyniki}
+
+W tym rozdziale przedstawiono wyniki eksperymentów dla trzech wybranych algorytmów:
+k-NN, naiwnego Bayesa oraz SVM. 
+Rozwiązaniem referencyjnym będzie rozwiązanie zwycięzcy konkursu KDD'99,
+o łącznym błędzie klasyfikacji równym 7.29\%. Macierz pomyłek dla 
+tego rozwiązania wygląda następująco:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | l | } \hline
+	& normal & probe & dos 	& u2r 	& r2l 	& Poprawnych	\\ \hline
+normal 	& 60262 & 243 	& 78	& 4	& 6 	& 99.5\% 	\\ \hline
+probe 	& 511 	& 3471 	& 184	& 0	& 0 	& 83.3\% 	\\ \hline
+dos 	& 5299 	& 1328 	& 223226& 0 	& 0 	& 97.1\% 	\\ \hline
+u2r 	& 168 	& 20 	& 0	& 30	& 10	& 13.2\%	\\ \hline
+r2l 	& 14527 & 294 	& 0	& 8	& 1360	& 8.4\%		\\ \hline
+\end{tabular} 
+\end{table}
+
+Wartość 14527 oznacza, że 14527 przykładów, które faktycznie należały do klasy r2l, zaklasyfikowano
+jako normal.
 
 \subsection{k-NN}
 
-Algorytm k-NN w wersji KD-tree został wielokrotnie uruchomiony na pełnym zbiorze trenującym
+Algorytm k-NN w wersji kd-tree został wielokrotnie uruchomiony na pełnym zbiorze trenującym
 z różnymi wartościami $k$.
-Dla $k=3$ osiągnięto najniższy błąd klasyfikacji na zbiorze testowym równy 7.68\%: \\
+Dla $k=3$ osiągnięto najniższy błąd klasyfikacji na zbiorze testowym równy 7.68\%:
 
+\begin{table}[H]
+\centering
 \begin{tabular}{ | r | r | r | } \hline
 $k$ & Błąd klasyfikacji & Czas w sekundach \\ \hline
 1 & 7.76\% & 695 \\ \hline
@@ -254,11 +283,14 @@ $k$ & Błąd klasyfikacji & Czas w sekundach \\ \hline
 5 & 7.75\% & 706 \\ \hline
 7 & 7.76\% & 615 \\ \hline
 9 & 7.77\% & 716 \\ \hline
-\end{tabular} \\\\
+\end{tabular} 
+\end{table}
 
 Czas wykonywania algorytmu wynosił od 10 do 12 minut.
-Macierz pomyłek dla najlepszego wariantu 3-NN wyglądała następująco: \\
+Macierz pomyłek dla najlepszego wariantu 3-NN wyglądała następująco:
 
+\begin{table}[H]
+\centering
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal & probe & dos 	& u2r 	& r2l 	& Poprawnych	\\ \hline
 normal 	& 59953 & 518 	& 118	& 0	& 3 	& 98.9\% 	\\ \hline
@@ -266,7 +298,8 @@ probe 	& 255 	& 3446 	& 465	& 0	& 0 	& 82.7\% 	\\ \hline
 dos 	& 6033 	& 712 	& 223108& 0 	& 0 	& 97\% 		\\ \hline
 u2r 	& 214 	& 4 	& 0	& 10	& 0	& 4.4\%		\\ \hline
 r2l 	& 15569 & 4 	& 3	& 0	& 613	& 3.8\%		\\ \hline
-\end{tabular} \\\\
+\end{tabular} 
+\end{table}
 
 \subsection{Naiwny klasyfikator Bayesa}
 
