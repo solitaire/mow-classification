@@ -25,6 +25,7 @@ cat("SMOTE...\n")
 classes = factor(data$trainClasses)
 fullData = cbind(data$train, classes)
 resampled = resampleData(classes, fullData, 10000, 6000)
+resampled = na.omit(resampled)
 resampledClasses = resampled$classes
 cat(nrow(resampled), "training samples,", sum(resampledClasses == "normal"), "have 'normal' class\n")
 cat(nrow(resampled), "training samples,", sum(resampledClasses == "dos"), "have 'dos' class\n")
@@ -34,7 +35,7 @@ cat(nrow(resampled), "training samples,", sum(resampledClasses == "probe"), "hav
 
 data$train = resampled[,1:14]
 data$trainClasses = resampledClasses
-save(data, file = paste(PROCESSED_FILE, ".smote"))
+save(data, file = paste(PROCESSED_FILE, ".smote", sep=""))
 
 cat("Done in ", toc(), "s.\n", sep = "")
 
