@@ -20,11 +20,16 @@
 
 \section{Interpretacja tematu projektu}
 Projekt ma na celu analizę działania różnych algorytmów klasyfikacji zastosowanych
-w procesie wykrywania ataków sieciowych. Połączenia sieciowe można podzielić na dwa typy:
+w procesie wykrywania ataków sieciowych. Połączenia sieciowe można zaklasyfikować do jednej
+z pięciu klas:
 \begin{itemize}
-	\item prawidłowe (klasa \texttt{normal})
-	\item nieprawidłowe, naruszające bezpieczeństwo
-(klasy \texttt{probe}, \texttt{DOS}, \texttt{U2R}, \texttt{R2L})
+  \item prawidłowe (klasa \texttt{normal}),
+  \item odpytywanie, np. skanowanie portów (klasa \texttt{probe}),
+  \item ataki typu Denial of Service (klasa \texttt{dos}),
+  \item ataki typu User to Root, polegające na przejęciu praw administratora, 
+np. ataki przepełnienia bufora (klasa \texttt{u2r}),
+  \item ataki typu Remote to Local, polegające na nieautoryzowanym dostępie ze zdalnego komputera 
+(klasa \texttt{r2l}).
 \end{itemize} 
 
 \section{Opis wykorzystanych algorytmów}\label{algorithms}
@@ -76,50 +81,7 @@ które polega na zbudowaniu klasyfikatora SVM dla każdej pary klas.
 Do przetestowania klasyfikatora SVM zostanie wykorzystana funkcja \texttt{svm} z~pakietu 
 \texttt{e1071} języka~R \footnote{\url{http://cran.r-project.org/web/packages/e1071/}}.
 
-\section{Plan badań}
-
-\subsection{Pytania, na które będzie poszukiwana odpowiedź}
-
-\begin{enumerate}
- \item Jakie parametry dla algorytmów dadzą najlepsze wyniki?
- \item Który algorytm przy najlepszych parametrach da najlepsze wyniki?
- \item Który algorytm przy najlepszych parametrach będzie działał najszybciej?
- \item Które cechy miały największy wpływ na klasyfikację?
-
-Wykorzystana zostanie funkcja \texttt{importance} z pakietu lasów losowych \texttt{randomForest}.
-\footnote{\url{http://cran.r-project.org/web/packages/randomForest/randomForest.pdf}}
-Funkcja ta zwraca wartości dwóch miar ważności dla wszystkich atrybutów.
-Pierwszą miarą jest średni spadek precyzji, drugą jest średni spadek nieczystości węzłów.
-\end{enumerate}
-
-\subsection{Parametry algorytmów, których wpływ na wyniki będzie badany}
-Poniżej przedstawiono parametry algorytmów, które będą analizowane.
-
-\subsubsection*{k-NN}
-\begin{itemize}
-	\item wartość parametru $k \in \{1, 3, 5, 7, 9\}$
-\end{itemize}
-
-\subsubsection*{Naiwny klasyfikator Bayesa}
-\begin{itemize}
-	\item wygładzanie Laplace'a
-\end{itemize}
-
-\subsubsection*{SVM}
-\begin{itemize}
- \item rodzaj jądra oraz parametry charakterystyczne dla poszczególnych typów
- \item wagi poszczególnych klas
-\end{itemize}
-
-\subsection{Ocena jakości modeli}
-Do porównywania jakości modeli wykorzystano błąd klasyfikacji na zbiorze testowym 
-\texttt{corrected}\footnote{\url{http://www-cse.ucsd.edu/users/elkan/corrected.gz}},
-przygotowanym przez autorów konkursu KDD'99.
-Zbiór ten zawiera 311028 przykładów. 
-Uczestnicy KDD'99 do oceny swoich rozwiązań używali tego samego zbioru testowego,
-co umożliwia porównanie wyników otrzymanych w tej pracy z wynikami z konkursu.
-
-\section{Analiza danych wejściowych}
+\section{Przygotowanie danych}
 
 Podczas realizacji projektu został wykorzystany zbiór danych z konkursu 
 KDD'99 Classifier Learning Contest
@@ -197,21 +159,15 @@ Nr & Nazwa & Opis & Zbiór wartości \\ \hline
 42      & attack\_type & rodzaj ataku sieciowego & back, buffer\_overflow, ftp\_write, guess\_passwd, imap, ipsweep, land, loadmodule, multihop, neptune, nmap, normal, perl, phf, pod, portsweep, rootkit, satan, smurf, spy, teardrop, warezclient, warezmaster \\ \hline
 \end{tabular} \\\\
 
-Gwiazdką * oznaczono 14 atrybutów wybranych do klasyfikacji.
-% TODO tutaj o tym jak je wybralismy
+Znakiem gwiazdki (*) oznaczono 14 atrybutów wybranych do klasyfikacji.
+Sposób w jaki je wybrano opisano w rozdziale \ref{sec:selekcja}.
 
-Zbiór testowy posiadał inny rozkład prawdopodobieństwa typów ataków niż zbiór treningowy.
+\section{Statystyczny opis danych}
+
+Zbiór testowy posiadał inny empiryczny rozkład prawdopodobieństwa typów ataków niż zbiór treningowy.
 % TODO konkretne tabelki ile
 
-Na podstawie 14 wybranych atrybutów, połączenia zostaną zaklasyfikowane do jednej z pięciu klas:
-
-\begin{enumerate}
- \item \texttt{normal} -- połączenia prawidłowe
- \item \texttt{probe} -- odpytywanie, np. skanowanie portów
- \item \texttt{DOS} -- ataki typu Denial of Service
- \item \texttt{U2R} -- przejęcie praw administratora lokalnej maszyny, np. ataki przepełnienia bufora
- \item \texttt{R2L} -- nieautoryzowany dostęp ze zdalnej maszyny, np. zgadywanie hasła
-\end{enumerate}
+\section{Transformacja danych}
 
 Na początku dane zostały przejrzane w poszukiwaniu pojedynczych wartości odstających
 powstałych np. na skutek błędu ludzkiego. Dokonano tego przy pomocy funkcji \texttt{summary}
@@ -223,12 +179,57 @@ Dlatego przetestowano resampling przykładów treningowych, w~celu uzyskania ró
 Wykorzystany został algorytm \texttt{SMOTE} udostępniany przez pakiet 
 \texttt{DMwR} \footnote{\url{http://cran.r-project.org/web/packages/DMwR/}} języka~R.
 
+\section{Selekcja atrybytów}
+\label{sec:selekcja}
+
+Wykorzystana została funkcja \texttt{importance} z pakietu lasów losowych \texttt{randomForest}.
+\footnote{\url{http://cran.r-project.org/web/packages/randomForest/randomForest.pdf}}
+Funkcja ta zwraca wartości dwóch miar ważności dla wszystkich atrybutów.
+Pierwszą miarą jest średni spadek precyzji, drugą jest średni spadek nieczystości węzłów.
+
+%TODO wykres i dane numeryczne
+
+\section{Ocena jakości modeli}
+
+Do porównywania jakości modeli wykorzystano błąd klasyfikacji na zbiorze testowym 
+\texttt{corrected}\footnote{\url{http://www-cse.ucsd.edu/users/elkan/corrected.gz}},
+przygotowanym przez autorów konkursu KDD'99.
+Zbiór ten zawiera 311028 przykładów. 
+Uczestnicy KDD'99 do oceny swoich rozwiązań używali tego samego zbioru testowego,
+co umożliwia porównanie wyników otrzymanych w tej pracy z wynikami z konkursu.
+
 \section{Wyniki eksperymentów}
 
-\subsection{k-NN}
+\subsection{Algorytmy z domyślnymi wartościami parametrów}
 
-\subsection{Naiwny klasyfikator Bayesa}
+\subsubsection{k-NN}
 
-\subsection{SVM}
+\subsubsection{Naiwny klasyfikator Bayesa}
+
+\subsubsection{SVM}
+
+\subsection{Strojenie wartości parametrów algorytmów}
+
+
+
+\subsubsection{k-NN}
+\begin{itemize}
+	\item wartość parametru $k \in \{1, 3, 5, 7, 9\}$
+\end{itemize}
+
+\subsubsection{Naiwny klasyfikator Bayesa}
+\begin{itemize}
+	\item wygładzanie Laplace'a
+\end{itemize}
+
+\subsubsection{SVM}
+\begin{itemize}
+ \item rodzaj jądra oraz parametry charakterystyczne dla poszczególnych typów
+ \item wagi poszczególnych klas
+\end{itemize}
+
+\subsection{SMOTE}
+
+\section{Wnioski}
 
 \end{document}
