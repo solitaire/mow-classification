@@ -361,12 +361,12 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \centering
 \label{table:cm_svm_linear_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
-	& dos & normal &  probe  &  r2l  &  u2r 	& Poprawnych	\\ \hline
-  dos    & 223700  &  287  &  641  &  5225   &   0  & 97.32 \% \\ \hline
-  normal &  33728  &   87  &  580  &  26146  &   51 & 0.14 \% \\ \hline
-  probe  &   1057  &    0  &  3052 &     2   &  55  & 73.25 \% \\ \hline
-  r2l    &  11892  &    1  &  3637 &   595   &  64  & 3.67 \% \\ \hline
-  u2r    &   171  &    1  &    2  &   23    &  31  & 13.59 \% \\ \hline
+	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
+ normal  &   87 &  580 & 33728 & 51 & 26146 & 0.14 \% \\ \hline
+ probe   &    0 &  3052 &  1057 & 55  &   2 & 73.25 \% \\ \hline
+ dos     &  287 &  641  & 223700 &  0 & 5225 & 97.32 \% \\ \hline
+ u2r     &    1 &   2   &  171 & 31 &  23 & 3.67 \% \\ \hline
+ r2l     &   1  & 3637  &  11892 & 64 & 595 & 13.59 \% \\ \hline
 \end{tabular}
 \caption{Wyniki dla jądra liniowego i domyślnych parametrów SVM.}
 \end{table}
@@ -375,12 +375,12 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \centering
 \label{table:cm_svm_radial_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
-	& dos & normal &  probe  &  r2l  &  u2r 	& Poprawnych	\\ \hline
-  dos    & 185289  &  44561  &    3  &    0  &    0  & 80.61 \% \\ \hline
-  normal & 120 &  60418  &   54  &    0  &    0 & 99.71 \% \\ \hline
-  probe  &   316  &  2291 &  1559  &    0  &    0  & 37.42 \% \\ \hline
-  r2l    &  2  & 16185  &    2   &   0   &   0  & 0 \% \\ \hline
-  u2r    &   0    &  99   &  129   &   0     &  0 & 0 \% \\ \hline
+	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
+  normal  & 60418  &  54   &  120   &  0 &  0 & 99.71 \% \\ \hline
+  probe   & 2291   &  1559 &   316  &  0 &  0 & 37.42 \% \\ \hline
+  dos     & 44561  &    3  & 185289 &  0 &  0 & 80.61 \% \\ \hline
+  u2r     &    99  & 129   &   0 &   0 &  0 & 0 \% \\ \hline
+  r2l     & 16185  &    2  &    2 &  0 &  0 & 0 \% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra radialnego i domyślnych parametrów SVM.}
 \end{table}
@@ -389,12 +389,12 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \centering
 \label{table:cm_svm_poly_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
-	& dos & normal &  probe  &  r2l  &  u2r 	& Poprawnych	\\ \hline
-  dos    & 146276  & 83264  &   313  &    0   &   0  & 63.63 \% \\ \hline
-  normal &  3299 &  56452 &   811  &    4   &  26 & 93.16 \% \\ \hline
-  probe  &   31  &  1395  &  2740  &     0  &    0  & 65.77 \% \\ \hline
-  r2l    &  6    & 15632  &    9  &    1   &  541  & 3.67 \% \\ \hline
-  u2r    &   3   &  200   &   4  &    2   &  19  & 13.59 \% \\ \hline
+	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
+  normal & 56452 &  811 &  3299 & 26 &  4 & 93.16 \% \\ \hline
+  probe  &  1395 & 2740 &    31 &  0 &  0 & 65.77 \% \\ \hline
+  dos    & 83264 &  313 & 146276 &  0 &  0 & 63.63 \% \\ \hline
+  u2r    &   200 &   4  &  3  & 19  & 2 & 3.67 \% \\ \hline
+  r2l    & 15632 &    9 &  6  & 541 &  1 & 13.59 \% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra wielomianowego i domyślnych parametrów SVM.}
 \end{table}
@@ -403,12 +403,12 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 \centering
 \label{table:cm_svm_sigmoid_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
-	& dos & normal &  probe  &  r2l  &  u2r 	& Poprawnych	\\ \hline
-  dos    & 229853  &  0  &  0  &  0   &   0  & 100 \% \\ \hline
-  normal &  60592  &   0  &  0  &  0  &   0 & 0 \% \\ \hline
-  probe  &   4166  &    0  &  0 &   0 &  0  & 0 \% \\ \hline
-  r2l    &  16189  &    0  &  0 &   0   &  0  & 0 \% \\ \hline
-  u2r    &   228  &    0  &    0  &   0    &  0  & 0 \% \\ \hline
+	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
+  normal   &   0  &   0 & 60592  &  0  &  0 & 0 \% \\ \hline
+  probe    &   0  &   0 &  4166  &  0  &  0 & 0 \% \\ \hline
+  dos      &   0  &   0 & 229853 &  0  &  0 & 100 \% \\ \hline
+  u2r      &   0  &   0 &   228  &  0  &  0 & 0 \% \\ \hline
+  r2l      &   0  &   0 & 16189  &  0  &  0 & 0 \% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra sigmoidalnego i domyślnych parametrów SVM.}
 \end{table}
@@ -416,7 +416,7 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 Na podstawie macierzy pomyłek przedstawionych w tabelach oraz błędów klasyfikacji wybrano dwa najbardziej obiecujące jądra: radialne, liniowe i sigmoidalne, dla których przeprowadzane były dalsze eksperymenty.
 
 \subsubsection{Wpływ wag klas na działanie SVM}
-Podczas eksperymentów zbadany został wpływ wag klas na działanie poszczególnych jąder SVM. Analizie zostały poddane kolejno następujące wagi: 1/częstość klasy, 100/częstość klasy, oraz wagi dobrane eksperymentalnie: normal = 0.5, probe=5, dos = 0.5, u2r = 10, r2l = 10.
+Podczas eksperymentów zbadany został wpływ wag klas na działanie poszczególnych jąder SVM. Analizie zostały poddane kolejno następujące wagi: 1/częstość klasy, 100/częstość klasy, oraz wagi dobrane eksperymentalnie: normal = 0.5, probe= 5, dos = 0.5, u2r = 10, r2l = 10.
 
 \begin{table}[H]
 \centering
