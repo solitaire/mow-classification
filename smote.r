@@ -34,7 +34,7 @@ cat(nrow(resampled), "training samples,", sum(resampledClasses == "probe"), "hav
 
 data$train = resampled[,1:14]
 data$trainClasses = resampledClasses
-save(cat(PROCESSED_FILE, ".smote"))
+save(data, file = paste(PROCESSED_FILE, ".smote"))
 
 cat("Done in ", toc(), "s.\n", sep = "")
 
