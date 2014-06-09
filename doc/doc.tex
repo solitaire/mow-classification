@@ -399,7 +399,6 @@ sigmoidalne & 26.09\% & 615 \\ \hline
 
 \begin{table}[H]
 \centering
-\label{table:cm_svm_linear_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
  normal  &   87 &  580 & 33728 & 51 & 26146 & 0.14\% \\ \hline
@@ -409,11 +408,11 @@ sigmoidalne & 26.09\% & 615 \\ \hline
  r2l     &   1  & 3637  &  11892 & 64 & 595 & 13.59\% \\ \hline
 \end{tabular}
 \caption{Wyniki dla jądra liniowego i domyślnych parametrów SVM.}
+\label{table:cm_svm_linear_default}
 \end{table}
 
 \begin{table}[H]
 \centering
-\label{table:cm_svm_radial_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
   normal  & 60418  &  54   &  120   &  0 &  0 & 99.71\% \\ \hline
@@ -423,11 +422,11 @@ sigmoidalne & 26.09\% & 615 \\ \hline
   r2l     & 16185  &    2  &    2 &  0 &  0 & 0\% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra radialnego i domyślnych parametrów SVM.}
+\label{table:cm_svm_radial_default}
 \end{table}
 
 \begin{table}[H]
 \centering
-\label{table:cm_svm_poly_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
   normal & 56452 &  811 &  3299 & 26 &  4 & 93.16\% \\ \hline
@@ -437,11 +436,11 @@ sigmoidalne & 26.09\% & 615 \\ \hline
   r2l    & 15632 &    9 &  6  & 541 &  1 & 13.59\% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra wielomianowego i domyślnych parametrów SVM.}
+\label{table:cm_svm_poly_default}
 \end{table}
 
 \begin{table}[H]
 \centering
-\label{table:cm_svm_sigmoid_default}
 \begin{tabular}{ | l | l | l | l | l | l | l | } \hline
 	& normal &  probe &   dos  &  u2r  & r2l 	& Poprawnych	\\ \hline
   normal   &   0  &   0 & 60592  &  0  &  0 & 0\% \\ \hline
@@ -451,6 +450,7 @@ sigmoidalne & 26.09\% & 615 \\ \hline
   r2l      &   0  &   0 & 16189  &  0  &  0 & 0\% \\ \hline
 \end{tabular} 
 \caption{Wyniki dla jądra sigmoidalnego i domyślnych parametrów SVM.}
+\label{table:cm_svm_sigmoid_default}
 \end{table}
 
 Na podstawie macierzy pomyłek przedstawionych w tabelach oraz błędów klasyfikacji wybrano dwa najbardziej obiecujące jądra: radialne, liniowe i sigmoidalne, dla których przeprowadzane były dalsze eksperymenty.
@@ -541,7 +541,7 @@ zbioru testowego. Empiryczny rozkład klas wyglądał następująco:
 		19.43\% & 0.85 \% & 78.04\% & 1.66\%  & 0.02\% & \\ \hline
 	\end{tabular}
 \caption{Rozkład klas w zbiorze trenującym SMOTE.}
-\label{table:test}
+\label{table:train_smote_full}
 \end{table}
 
 Na potrzeby klasyfikatora SVM wygenerowany został mniej liczny zbiór SMOTE liczący 36452 przykładów. Empiryczny rozkład klas wyglądał następująco:
@@ -553,7 +553,7 @@ Na potrzeby klasyfikatora SVM wygenerowany został mniej liczny zbiór SMOTE lic
 		16.93\% & 0.70 \% & 67.94 \% & 14.40\%  & 0.013\% & \\ \hline
 	\end{tabular}
 \caption{Rozkład klas w ograniczonym zbiorze trenującym SMOTE.}
-\label{table:test}
+\label{table:train_smote_small}
 \end{table}
 
 Algorytm znacznie poprawił częstość występowania przykładów z klasy u2r -- z 0.001\% do 1.66\%.
@@ -654,7 +654,7 @@ danych - drzew kd. Drzewa te dzielą obszar przeszukiwań na mniejsze podobszary
 czemu znaczna część całego obszaru może zostać pominięta, 
 co przyczynia się do ogromnego wzrostu wydajności. Można to zaobserwować w przedstawionych
 wynikach eksperymentów -- algorytmy
-k-NN na pełnym zbiorze trenującym wykonywały się najszybciej (ok. 11 minut).
+k-NN na pełnym zbiorze trenujących wykonywały się najszybciej (ok. 11 minut).
 
 \bibliography{bibliografia}
 
